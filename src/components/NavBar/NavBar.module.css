@@ -1,0 +1,81 @@
+.navBarContainer {
+  background: linear-gradient(90deg, #178582 0%, #0f5c5c 50%, #178582 100%);
+  padding: 0.75rem 1.5rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.navBarBrand {
+  color: #FFFFFF;
+  font-weight: 700;
+  font-size: 1.8rem;
+  font-family: "Quantico", sans-serif;
+  letter-spacing: 1px;
+}
+
+.navBarBrand:hover {
+  color: #BFA181;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.navBarLink {
+  color: #FFFFFF;
+  font-weight: 500;
+  font-size: 16px;
+  margin: 0 1rem;
+  text-decoration: none;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.navBarLink:hover,
+.navBarLink:focus {
+  color: #BFA181;
+}
+
+.navBarLink.active {
+  color: #BFA181;
+  font-weight: 600;
+  border-bottom: 2px solid #BFA181;
+  padding-bottom: 2px;
+}
+
+.navBarSection {
+  font-weight: 600;
+  color: #fff;
+  margin-right: 8px;
+}
+
+.whatsappLink {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  transition: transform 0.2s ease;
+}
+
+.whatsappIcon {
+  color: #25D366; 
+  font-size: 24px;
+}
+
+.whatsappText {
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.whatsappLink:hover .whatsappText {
+  color: #BFA181;
+}
+
+.whatsappLink:hover {
+  transform: scale(1.05);
+}
+
+.logo {
+  height: 45px;
+  width: auto;
+  object-fit: contain;
+}
+

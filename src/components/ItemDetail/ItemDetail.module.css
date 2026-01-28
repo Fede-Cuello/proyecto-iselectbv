@@ -1,0 +1,129 @@
+.itemDetailCard {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.detailImage {
+  width: 100%;
+  max-height: 350px;   /* desktop */
+  object-fit: contain;  /* mantiene proporción */
+  display: block;
+  margin: 0 auto;
+  border-radius: 10px 10px 0 0;
+  background-color: #f5f5f5; /* relleno si la imagen es más pequeña */
+}
+
+.imageCol {
+  padding: 15px;
+}
+
+.infoCol {
+  padding: 15px;
+}
+
+.colorSelector {
+  display: flex;
+  margin-top: 10px;
+  gap: 5px;
+  justify-content: center;
+}
+
+.colorButton {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  transition: transform 0.2s, border 0.2s;
+}
+
+.colorButton:hover {
+  transform: scale(1.1);
+}
+
+/* Color activo */
+.activeColor {
+  border: 2px solid #178582;
+}
+
+
+/* Selector de almacenamiento */
+.storageSelector {
+  margin-top: 15px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.storageButton {
+  padding: 5px 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s, transform 0.2s;
+}
+
+.storageButton:hover {
+  background-color: #178582;
+  color: #fff;
+  transform: scale(1.05);
+}
+
+/* Almacenamiento seleccionado */
+.activeStorage {
+  background-color: #178582;
+  color: #fff;
+  border: 2px solid #0b4281;
+}
+
+
+.title {
+  font-weight: bold;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.description {
+  margin-bottom: 15px;
+}
+
+.price {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #178582;
+}
+
+/* Responsive: tablets */
+@media (max-width: 768px) {
+  .detailImage {
+    max-height: 200px;
+  }
+}
+
+/* Responsive: móviles pequeños */
+@media (max-width: 480px) {
+  .detailImage {
+    max-height: 200px;
+  }
+}
+
+
+.buttonRow {
+  display: flex;
+  gap: 10px; /* espacio entre botones */
+  margin-top: 20px;
+}
+
+.actionButton {
+  flex: 1; /* hace que ambos botones ocupen el mismo ancho */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px; /* espacio entre icono y texto */
+}
+
+* {
+  font-family: "Quantico", sans-serif;
+}
