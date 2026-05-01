@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { useParams } from "react-router"
 import ItemDetail from "./ItemDetail/ItemDetail"
-import { getProduct } from "../firebase/db"
+import { getProduct } from "../firebase/supabaseDb"
 import { withLoadingDetail } from "../hoc/withLoadingDetail"
 import { toast } from "react-toastify"
 import { useNavigate } from "react-router"

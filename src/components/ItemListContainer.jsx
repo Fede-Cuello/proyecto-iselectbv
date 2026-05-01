@@ -1,16 +1,21 @@
-import { useState, useEffect } from 'react'
-import ItemList from './ItemList'
-import { useParams } from 'react-router'
-import { getProducts, getProdByCat, getProdByEstado } from "../firebase/db";
-import { withLoading } from '../hoc/withLoading'
-import { toast } from 'react-toastify'
+import { useState, useEffect } from "react";
+import ItemList from "./ItemList";
+import { useParams } from "react-router";
+import { getProducts, getProdByCat, getProdByEstado } from "../firebase/supabaseDb";
+import { withLoading } from "../hoc/withLoading";
+import { toast } from "react-toastify";
+import Hero from "./Hero/Hero";
+import CategoriesHighlight from "./CategoriesHighlight/CategoriesHighlight";
+import AboutUs from "./AboutUs/AboutUs";
 
-const ItemsListWithLoading = withLoading (ItemList) 
+const ItemsListWithLoading = withLoading(ItemList);
 
 export default function ItemListContainer() {
-  const [items, setItems] = useState(null)
-  const {categoriaElegida, estadoElegido} = useParams ()
- 
+  const [items, setItems] = useState(null);
+  const { categoriaElegida, estadoElegido } = useParams();
+
+  const isHomePage = !categoriaElegida && !estadoElegido;
+
   useEffect(() => {
     const getAllProducts = async () => {
       try {
@@ -33,18 +38,33 @@ export default function ItemListContainer() {
     };
 
     getAllProducts();
-  }, [categoriaElegida, estadoElegido])
+  }, [categoriaElegida, estadoElegido]);
 
   return (
     <div>
-      <h2 className="text-center my-3">
-        {categoriaElegida
-          ? `Productos en categoría "${categoriaElegida}"`
-          : estadoElegido
-          ? `Productos en estado "${estadoElegido}"`
-          : "Todos los productos"}
-      </h2>
-      <ItemsListWithLoading items={items} />
+      {isHomePage && <Hero />}
+      {isHomePage && <CategoriesHighlight />}
+
+      <div id="productos" style={{ paddingTop: isHomePage ? "0" : "2rem" }}>
+        <h2
+          className="text-center my-3"
+          style={{
+            fontSize: "2rem",
+            fontWeight: "700",
+            color: "#0A1F44",
+            paddingTop: isHomePage ? "3rem" : "0",
+          }}
+        >
+          {categoriaElegida
+            ? `${categoriaElegida.charAt(0).toUpperCase() + categoriaElegida.slice(1)}`
+            : estadoElegido
+              ? `Productos ${estadoElegido}`
+              : "Todos nuestros productos"}
+        </h2>
+        <ItemsListWithLoading items={items} />
+      </div>
+
+      {isHomePage && <AboutUs />}
     </div>
   );
 }

@@ -15,11 +15,11 @@ export default function NavBar() {
           <div className="flex-grow-1 d-flex justify-content-center">
             <Navbar.Brand as={NavLink} to={"/"} className={styles.navBarBrand}>
               <img
-                src="/logo-iselectbv.webp"
-                alt="IselectBV Logo"
+                src="/logo-circular.png"
+                alt="IphoneselectBV Logo"
                 className={styles.logo}
               />
-              <span className="ms-2 d-none d-md-inline">IselectBV</span>
+              <span className="ms-2 d-none d-md-inline">IphoneSelectBV</span>
             </Navbar.Brand>
           </div>
 

@@ -1,0 +1,150 @@
+.aboutSection {
+  padding: 100px 0;
+  background: #F5F5F5;
+}
+
+.aboutContent {
+  padding-right: 3rem;
+}
+
+.aboutTitle {
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: #1A1A1A;
+  margin-bottom: 2rem;
+  letter-spacing: -1px;
+  position: relative;
+  display: inline-block;
+}
+
+.aboutTitle::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, #C9A380 0%, #D4B495 100%);
+  border-radius: 2px;
+}
+
+.aboutText {
+  font-size: 1.15rem;
+  color: #6B5D52;
+  line-height: 1.9;
+  margin-bottom: 1.5rem;
+}
+
+.featureCard {
+  background: linear-gradient(135deg, #C9A380 0%, #B89070 100%);
+  padding: 2rem;
+  border-radius: 20px;
+  text-align: center;
+  color: white;
+  height: 100%;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 24px rgba(201, 163, 128, 0.25);
+  position: relative;
+  overflow: hidden;
+}
+
+.featureCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.15) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.featureCard:hover::before {
+  opacity: 1;
+}
+
+.featureCard:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 16px 40px rgba(201, 163, 128, 0.35);
+}
+
+.featureIcon {
+  font-size: 3rem;
+  margin-bottom: 1.2rem;
+  opacity: 0.95;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+  transition: transform 0.3s ease;
+}
+
+.featureCard:hover .featureIcon {
+  transform: scale(1.1) rotate(-5deg);
+}
+
+.featureTitle {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 0.8rem;
+  letter-spacing: -0.3px;
+}
+
+.featureDescription {
+  font-size: 0.95rem;
+  margin-bottom: 0;
+  opacity: 0.95;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .aboutSection {
+    padding: 60px 0;
+  }
+
+  .aboutContent {
+    padding-right: 0;
+    margin-bottom: 3rem;
+  }
+
+  .aboutTitle {
+    font-size: 2.2rem;
+    text-align: center;
+  }
+
+  .aboutTitle::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .aboutText {
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  .featureCard {
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .featureIcon {
+    font-size: 2.5rem;
+  }
+
+  .featureTitle {
+    font-size: 1.1rem;
+  }
+
+  .featureDescription {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .aboutTitle {
+    font-size: 1.9rem;
+  }
+  
+  .featureCard {
+    padding: 1.2rem;
+  }
+}

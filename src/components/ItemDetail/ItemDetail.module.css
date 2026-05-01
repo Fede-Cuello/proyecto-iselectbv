@@ -1,104 +1,204 @@
+* {
+  font-family: "Inter", "Quantico", sans-serif;
+}
+
 .itemDetailCard {
-  border-radius: 10px;
+  border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border: 1px solid #E5E0DB;
+  box-shadow: 0 4px 24px rgba(107, 93, 82, 0.12);
+  background: #FFFFFF;
 }
 
 .detailImage {
   width: 100%;
-  max-height: 350px;   /* desktop */
-  object-fit: contain;  /* mantiene proporción */
+  max-height: 400px;
+  object-fit: contain;
   display: block;
   margin: 0 auto;
-  border-radius: 10px 10px 0 0;
-  background-color: #f5f5f5; /* relleno si la imagen es más pequeña */
+  padding: 2rem;
+  background: linear-gradient(180deg, #F5F5F5 0%, #FFFFFF 100%);
+  transition: transform 0.3s ease;
+}
+
+.detailImage:hover {
+  transform: scale(1.05);
 }
 
 .imageCol {
-  padding: 15px;
+  padding: 20px;
+  background: linear-gradient(180deg, #F5F5F5 0%, #FFFFFF 50%);
+  border-right: 1px solid #E5E0DB;
 }
 
 .infoCol {
-  padding: 15px;
+  padding: 30px;
+  background: #FFFFFF;
 }
 
 .colorSelector {
   display: flex;
-  margin-top: 10px;
-  gap: 5px;
+  margin-top: 15px;
+  gap: 8px;
   justify-content: center;
+  padding: 15px;
+  background: rgba(245, 245, 245, 0.5);
+  border-radius: 12px;
 }
 
 .colorButton {
-  width: 30px;
-  height: 30px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  border: 1px solid #ccc;
+  border: 2px solid #E5E0DB;
   cursor: pointer;
-  transition: transform 0.2s, border 0.2s;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(107, 93, 82, 0.15);
 }
 
 .colorButton:hover {
-  transform: scale(1.1);
+  transform: scale(1.15);
+  box-shadow: 0 4px 12px rgba(107, 93, 82, 0.25);
 }
 
-/* Color activo */
 .activeColor {
-  border: 2px solid #178582;
+  border: 3px solid #C9A380;
+  box-shadow: 0 0 0 3px rgba(201, 163, 128, 0.2);
 }
-
 
 /* Selector de almacenamiento */
 .storageSelector {
-  margin-top: 15px;
+  margin-top: 20px;
+  margin-bottom: 20px;
   display: flex;
-  gap: 10px;
+  gap: 12px;
   flex-wrap: wrap;
   justify-content: center;
 }
 
 .storageButton {
-  padding: 5px 12px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  padding: 10px 20px;
+  border: 2px solid #E5E0DB;
+  border-radius: 12px;
+  background: #FFFFFF;
   cursor: pointer;
-  transition: background-color 0.2s, color 0.2s, transform 0.2s;
+  font-weight: 600;
+  color: #6B5D52;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(107, 93, 82, 0.08);
 }
 
 .storageButton:hover {
-  background-color: #178582;
-  color: #fff;
-  transform: scale(1.05);
+  background: #F5F5F5;
+  border-color: #C9A380;
+  color: #6B5D52;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(201, 163, 128, 0.2);
 }
 
-/* Almacenamiento seleccionado */
 .activeStorage {
-  background-color: #178582;
-  color: #fff;
-  border: 2px solid #0b4281;
+  background: linear-gradient(135deg, #C9A380 0%, #B89070 100%);
+  color: #FFFFFF;
+  border-color: #B89070;
+  box-shadow: 0 4px 16px rgba(201, 163, 128, 0.3);
 }
 
+.activeStorage:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(201, 163, 128, 0.4);
+}
 
 .title {
-  font-weight: bold;
-  font-size: 1.5rem;
-  margin-bottom: 10px;
+  font-weight: 700;
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+  color: #1A1A1A;
+  letter-spacing: -0.5px;
 }
 
 .description {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
+  color: #6B5D52;
+  line-height: 1.8;
+  font-size: 1rem;
 }
 
 .price {
-  font-size: 1.3rem;
-  font-weight: bold;
-  color: #178582;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #C9A380;
+  margin-bottom: 25px;
+  letter-spacing: -1px;
+}
+
+.buttonRow {
+  display: flex;
+  gap: 12px;
+  margin-top: 30px;
+}
+
+.actionButton {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 24px;
+  font-weight: 600;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  letter-spacing: 0.3px;
+  border: none;
+}
+
+.actionButton.btn-success {
+  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+  box-shadow: 0 4px 16px rgba(16, 185, 129, 0.3);
+  color: #FFFFFF;
+}
+
+.actionButton.btn-success:hover {
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(16, 185, 129, 0.4);
+  color: #FFFFFF;
+}
+
+.actionButton.btn-secondary {
+  background: #F5F5F5;
+  color: #6B5D52;
+  border: 2px solid #E5E0DB;
+}
+
+.actionButton.btn-secondary:hover {
+  background: #E5E0DB;
+  color: #6B5D52;
+  border-color: #D5D0C8;
+  transform: translateY(-2px);
 }
 
 /* Responsive: tablets */
 @media (max-width: 768px) {
   .detailImage {
-    max-height: 200px;
+    max-height: 250px;
+    padding: 1.5rem;
+  }
+  
+  .imageCol {
+    border-right: none;
+    border-bottom: 1px solid #E5E0DB;
+  }
+  
+  .infoCol {
+    padding: 20px;
+  }
+  
+  .title {
+    font-size: 1.5rem;
+  }
+  
+  .price {
+    font-size: 1.6rem;
   }
 }
 
@@ -106,24 +206,31 @@
 @media (max-width: 480px) {
   .detailImage {
     max-height: 200px;
+    padding: 1rem;
   }
-}
-
-
-.buttonRow {
-  display: flex;
-  gap: 10px; /* espacio entre botones */
-  margin-top: 20px;
-}
-
-.actionButton {
-  flex: 1; /* hace que ambos botones ocupen el mismo ancho */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 5px; /* espacio entre icono y texto */
-}
-
-* {
-  font-family: "Quantico", sans-serif;
+  
+  .buttonRow {
+    flex-direction: column;
+  }
+  
+  .actionButton {
+    width: 100%;
+  }
+  
+  .title {
+    font-size: 1.3rem;
+  }
+  
+  .price {
+    font-size: 1.4rem;
+  }
+  
+  .storageSelector {
+    gap: 8px;
+  }
+  
+  .storageButton {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+  }
 }
