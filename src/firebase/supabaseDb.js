@@ -1,182 +1,178 @@
 import { supabase } from './supabase'
 
-/**
- * Obtener todos los productos
- * @returns {Promise<Array>} Array de productos
- */
+// Transforma filas de DB al formato que esperan los componentes
+function normalizar(prod) {
+  const imgs = (prod.imagenes || []).sort((a, b) => a.orden - b.orden)
+  const vars = (prod.variantes || [])
+  return {
+    ...prod,
+    imagen: imgs.map(i => i.url),
+    colores: imgs.map(i => i.color_css || i.color),
+    coloresNombres: imgs.map(i => i.color),
+    almacenamiento: vars.map(v => v.almacenamiento),
+    precio: vars.map(v => String(v.precio)),
+  }
+}
+
+// ── Funciones públicas (frontend) ─────────────────────────────────────
+
 export const getProducts = async () => {
   try {
     const { data, error } = await supabase
       .from('productos')
-      .select('*')
-      .order('created_at', { ascending: false })
-    
-    if (error) {
-      console.error('Error de Supabase:', error)
-      throw error
-    }
-    
-    console.log(`✅ ${data?.length || 0} productos obtenidos`)
-    return data || []
+      .select('*, variantes(*), imagenes(*)')
+      .eq('activo', true)
+      .order('orden', { ascending: true })
+    if (error) throw error
+    return (data || []).map(normalizar)
   } catch (error) {
     console.error('❌ Error obteniendo productos:', error.message)
     return []
   }
 }
 
-/**
- * Obtener un producto por ID
- * @param {string|number} id - ID del producto
- * @returns {Promise<Object|null>} Producto o null
- */
 export const getProduct = async (id) => {
   try {
     const { data, error } = await supabase
       .from('productos')
-      .select('*')
+      .select('*, variantes(*), imagenes(*)')
       .eq('id', id)
       .single()
-    
-    if (error) {
-      console.error('Error de Supabase:', error)
-      throw error
-    }
-    
-    console.log(`✅ Producto ${id} obtenido`)
-    return data
+    if (error) throw error
+    return normalizar(data)
   } catch (error) {
     console.error(`❌ Error obteniendo producto ${id}:`, error.message)
     return null
   }
 }
 
-/**
- * Obtener productos por categoría
- * @param {string} categoria - Nombre de la categoría (samsung, apple, consolas)
- * @returns {Promise<Array>} Array de productos
- */
 export const getProdByCat = async (categoria) => {
   try {
     const { data, error } = await supabase
       .from('productos')
-      .select('*')
+      .select('*, variantes(*), imagenes(*)')
       .eq('categoria', categoria.toLowerCase())
-      .order('created_at', { ascending: false })
-    
-    if (error) {
-      console.error('Error de Supabase:', error)
-      throw error
-    }
-    
-    console.log(`✅ ${data?.length || 0} productos en categoría "${categoria}"`)
-    return data || []
+      .eq('activo', true)
+      .order('orden', { ascending: true })
+    if (error) throw error
+    return (data || []).map(normalizar)
   } catch (error) {
-    console.error(`❌ Error obteniendo productos de categoría ${categoria}:`, error.message)
+    console.error(`❌ Error obteniendo categoría ${categoria}:`, error.message)
     return []
   }
 }
 
-/**
- * Obtener productos por estado
- * @param {string} estado - Estado del producto (sellados, usado)
- * @returns {Promise<Array>} Array de productos
- */
 export const getProdByEstado = async (estado) => {
   try {
     const { data, error } = await supabase
       .from('productos')
-      .select('*')
+      .select('*, variantes(*), imagenes(*)')
       .eq('estado', estado.toLowerCase())
-      .order('created_at', { ascending: false })
-    
-    if (error) {
-      console.error('Error de Supabase:', error)
-      throw error
-    }
-    
-    console.log(`✅ ${data?.length || 0} productos en estado "${estado}"`)
-    return data || []
+      .eq('activo', true)
+      .order('orden', { ascending: true })
+    if (error) throw error
+    return (data || []).map(normalizar)
   } catch (error) {
-    console.error(`❌ Error obteniendo productos por estado ${estado}:`, error.message)
+    console.error(`❌ Error obteniendo estado ${estado}:`, error.message)
     return []
   }
 }
 
-/**
- * BONUS: Función para agregar productos (útil para migración)
- * @param {Object} producto - Objeto con datos del producto
- * @returns {Promise<Object|null>} Producto creado o null
- */
-export const addProduct = async (producto) => {
-  try {
-    const { data, error } = await supabase
-      .from('productos')
-      .insert([producto])
-      .select()
-      .single()
-    
-    if (error) {
-      console.error('Error de Supabase:', error)
-      throw error
-    }
-    
-    console.log(`✅ Producto agregado: ${data.nombre}`)
-    return data
-  } catch (error) {
-    console.error('❌ Error agregando producto:', error.message)
-    return null
-  }
+// ── Funciones de administración ───────────────────────────────────────
+
+export const getAllProductsAdmin = async () => {
+  const { data, error } = await supabase
+    .from('productos')
+    .select('*, variantes(*), imagenes(*)')
+    .order('orden', { ascending: true })
+  if (error) throw error
+  return data || []
 }
 
-/**
- * BONUS: Función para actualizar producto
- * @param {string|number} id - ID del producto
- * @param {Object} cambios - Objeto con cambios a aplicar
- * @returns {Promise<Object|null>} Producto actualizado o null
- */
-export const updateProduct = async (id, cambios) => {
-  try {
-    const { data, error } = await supabase
-      .from('productos')
-      .update(cambios)
-      .eq('id', id)
-      .select()
-      .single()
-    
-    if (error) {
-      console.error('Error de Supabase:', error)
-      throw error
-    }
-    
-    console.log(`✅ Producto ${id} actualizado`)
-    return data
-  } catch (error) {
-    console.error(`❌ Error actualizando producto ${id}:`, error.message)
-    return null
-  }
+export const getProductAdmin = async (id) => {
+  const { data, error } = await supabase
+    .from('productos')
+    .select('*, variantes(*), imagenes(*)')
+    .eq('id', id)
+    .single()
+  if (error) throw error
+  return data
 }
 
-/**
- * BONUS: Función para eliminar producto
- * @param {string|number} id - ID del producto
- * @returns {Promise<boolean>} true si se eliminó correctamente
- */
-export const deleteProduct = async (id) => {
-  try {
+export const createProduct = async (producto, variantes) => {
+  const { data: prod, error: prodErr } = await supabase
+    .from('productos')
+    .insert([producto])
+    .select()
+    .single()
+  if (prodErr) throw prodErr
+
+  if (variantes.length > 0) {
+    const { error: varErr } = await supabase
+      .from('variantes')
+      .insert(variantes.map(v => ({ ...v, producto_id: prod.id })))
+    if (varErr) throw varErr
+  }
+
+  return prod
+}
+
+export const updateProductData = async (id, producto) => {
+  const { error } = await supabase
+    .from('productos')
+    .update({ ...producto, updated_at: new Date().toISOString() })
+    .eq('id', id)
+  if (error) throw error
+}
+
+export const deleteProductAdmin = async (id) => {
+  const { error } = await supabase.from('productos').delete().eq('id', id)
+  if (error) throw error
+}
+
+export const toggleActivo = async (id, activo) => {
+  const { error } = await supabase
+    .from('productos')
+    .update({ activo, updated_at: new Date().toISOString() })
+    .eq('id', id)
+  if (error) throw error
+}
+
+export const replaceVariantes = async (productoId, variantes) => {
+  await supabase.from('variantes').delete().eq('producto_id', productoId)
+  if (variantes.length > 0) {
     const { error } = await supabase
-      .from('productos')
-      .delete()
-      .eq('id', id)
-    
-    if (error) {
-      console.error('Error de Supabase:', error)
-      throw error
-    }
-    
-    console.log(`✅ Producto ${id} eliminado`)
-    return true
-  } catch (error) {
-    console.error(`❌ Error eliminando producto ${id}:`, error.message)
-    return false
+      .from('variantes')
+      .insert(variantes.map(v => ({ ...v, producto_id: productoId })))
+    if (error) throw error
   }
+}
+
+export const replaceImagenes = async (productoId, imagenes) => {
+  await supabase.from('imagenes').delete().eq('producto_id', productoId)
+  if (imagenes.length > 0) {
+    const { error } = await supabase
+      .from('imagenes')
+      .insert(imagenes.map(i => ({ ...i, producto_id: productoId })))
+    if (error) throw error
+  }
+}
+
+export const insertImagenes = async (productoId, imagenes) => {
+  if (imagenes.length === 0) return
+  const { error } = await supabase
+    .from('imagenes')
+    .insert(imagenes.map(i => ({ ...i, producto_id: productoId })))
+  if (error) throw error
+}
+
+export const uploadProductImage = async (productoId, file) => {
+  const ext = file.name.split('.').pop().toLowerCase()
+  const path = `${productoId}/${Date.now()}.${ext}`
+  const { error } = await supabase.storage
+    .from('productos')
+    .upload(path, file, { cacheControl: '3600', upsert: false })
+  if (error) throw error
+  const { data } = supabase.storage.from('productos').getPublicUrl(path)
+  return data.publicUrl
 }

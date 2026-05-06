@@ -1,0 +1,571 @@
+/* ── Layout ─────────────────────────────────────────────────────────── */
+.adminWrapper {
+  min-height: 100vh;
+  background: #f4f6f9;
+  font-family: 'Inter', sans-serif;
+}
+
+.loadingScreen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  font-size: 1.2rem;
+  color: #666;
+}
+
+/* ── Nav ────────────────────────────────────────────────────────────── */
+.adminNav {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 0 2rem;
+  height: 60px;
+  background: #0A1F44;
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.adminBrand {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: white;
+  letter-spacing: 0.5px;
+}
+
+.adminBadge {
+  background: #e63946;
+  color: white;
+  font-size: 0.65rem;
+  padding: 2px 7px;
+  border-radius: 4px;
+  margin-left: 6px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.navLinks {
+  display: flex;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.navLink {
+  color: rgba(255,255,255,0.75);
+  text-decoration: none;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  transition: all 0.15s;
+}
+
+.navLink:hover {
+  color: white;
+  background: rgba(255,255,255,0.1);
+}
+
+.navLinkActive {
+  color: white;
+  background: rgba(255,255,255,0.15);
+  font-weight: 600;
+}
+
+.navRight {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-left: auto;
+}
+
+.userEmail {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.6);
+}
+
+.logoutBtn {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.3);
+  color: rgba(255,255,255,0.8);
+  padding: 5px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.15s;
+}
+
+.logoutBtn:hover {
+  background: rgba(255,255,255,0.1);
+  color: white;
+}
+
+.adminMain {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ── Login ──────────────────────────────────────────────────────────── */
+.loginWrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f4f6f9;
+}
+
+.loginCard {
+  background: white;
+  border-radius: 12px;
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+}
+
+.loginCard h2 {
+  margin: 0 0 0.25rem;
+  color: #0A1F44;
+  font-size: 1.5rem;
+}
+
+.loginCard > p {
+  color: #888;
+  margin: 0 0 2rem;
+  font-size: 0.9rem;
+}
+
+/* ── Forms ──────────────────────────────────────────────────────────── */
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 1rem;
+}
+
+.formGroup label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #444;
+}
+
+.formGroup input,
+.formGroup select,
+.formGroup textarea {
+  padding: 9px 12px;
+  border: 1.5px solid #ddd;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  color: #222;
+  transition: border-color 0.15s;
+  background: white;
+}
+
+.formGroup input:focus,
+.formGroup select:focus,
+.formGroup textarea:focus {
+  outline: none;
+  border-color: #0A1F44;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 1rem;
+}
+
+.checkboxRow {
+  display: flex;
+  gap: 2rem;
+  margin-top: 0.5rem;
+}
+
+.checkboxRow label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  color: #444;
+}
+
+.errorMsg {
+  color: #e63946;
+  font-size: 0.85rem;
+  margin: 0.5rem 0;
+}
+
+/* ── Buttons ────────────────────────────────────────────────────────── */
+.btnPrimary {
+  background: #0A1F44;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  transition: background 0.15s;
+}
+
+.btnPrimary:hover {
+  background: #142d61;
+  color: white;
+}
+
+.btnPrimary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.submitBtn {
+  width: 100%;
+  background: #0A1F44;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+  margin-top: 0.5rem;
+}
+
+.submitBtn:hover { background: #142d61; }
+.submitBtn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.btnSecondary {
+  background: white;
+  color: #0A1F44;
+  border: 1.5px solid #0A1F44;
+  padding: 9px 18px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.btnSecondary:hover {
+  background: #f0f2f5;
+}
+
+.btnEdit {
+  background: #e8f0fe;
+  color: #1a73e8;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+
+.btnEdit:hover { background: #d2e3fc; color: #1a73e8; }
+
+.btnDelete {
+  background: #fde8e8;
+  color: #e63946;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.btnDelete:hover { background: #f8c8c8; }
+
+.btnRemove {
+  background: #fde8e8;
+  color: #e63946;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  align-self: flex-end;
+  margin-bottom: 1rem;
+}
+
+.btnRemoveImg {
+  background: #fde8e8;
+  color: #e63946;
+  border: none;
+  padding: 4px 10px;
+  border-radius: 5px;
+  font-size: 0.78rem;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 6px;
+}
+
+/* ── Product List ───────────────────────────────────────────────────── */
+.pageHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.pageHeader h1 {
+  margin: 0;
+  color: #0A1F44;
+  font-size: 1.6rem;
+}
+
+.tableWrapper {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  overflow: hidden;
+}
+
+.adminTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.adminTable th {
+  background: #f8f9fb;
+  padding: 12px 16px;
+  text-align: left;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1.5px solid #eee;
+}
+
+.adminTable td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 0.9rem;
+  color: #333;
+  vertical-align: middle;
+}
+
+.adminTable tr:last-child td { border-bottom: none; }
+
+.adminTable tr:hover td { background: #fafbfc; }
+
+.inactiveRow td { opacity: 0.5; }
+
+.thumbImg {
+  width: 52px;
+  height: 52px;
+  object-fit: contain;
+  border-radius: 6px;
+  background: #f5f5f5;
+}
+
+.badge {
+  background: #e8f0fe;
+  color: #1a73e8;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.priceTag {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.actionBtns {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+/* ── Toggle switch ──────────────────────────────────────────────────── */
+.toggle {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggleSlider {
+  position: absolute;
+  inset: 0;
+  background: #ccc;
+  border-radius: 24px;
+  transition: background 0.2s;
+}
+
+.toggleSlider::before {
+  content: '';
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  left: 3px;
+  bottom: 3px;
+  background: white;
+  border-radius: 50%;
+  transition: transform 0.2s;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.toggle input:checked + .toggleSlider { background: #34c759; }
+.toggle input:checked + .toggleSlider::before { transform: translateX(20px); }
+
+/* ── Product Form ───────────────────────────────────────────────────── */
+.formPage {
+  max-width: 860px;
+}
+
+.formPage h1 {
+  color: #0A1F44;
+  margin: 0 0 1.5rem;
+  font-size: 1.6rem;
+}
+
+.formSection {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.25rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.formSection h3 {
+  margin: 0 0 1.25rem;
+  color: #0A1F44;
+  font-size: 1rem;
+  font-weight: 700;
+  padding-bottom: 0.75rem;
+  border-bottom: 1.5px solid #f0f0f0;
+}
+
+.varianteRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr auto;
+  gap: 0.75rem;
+  align-items: flex-start;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.varianteRow:last-of-type { border-bottom: none; }
+
+/* ── Images ─────────────────────────────────────────────────────────── */
+.fileInput {
+  display: block;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.imageGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.imageCard {
+  background: #f8f9fb;
+  border-radius: 10px;
+  padding: 10px;
+  border: 1.5px solid #eee;
+  transition: border-color 0.15s;
+}
+
+.imageCard img {
+  width: 100%;
+  height: 130px;
+  object-fit: contain;
+  border-radius: 6px;
+  background: white;
+  margin-bottom: 8px;
+}
+
+.imageToDelete {
+  border-color: #e63946;
+  opacity: 0.5;
+}
+
+.imageInfo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: #555;
+  margin-bottom: 6px;
+}
+
+.colorDot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1.5px solid #ddd;
+}
+
+.imageFields {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.imageFields input[type="text"],
+.imageFields input:not([type="color"]) {
+  padding: 6px 8px;
+  border: 1.5px solid #ddd;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.colorRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  color: #666;
+}
+
+.colorRow input[type="color"] {
+  width: 32px;
+  height: 28px;
+  padding: 2px;
+  border: 1.5px solid #ddd;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* ── Form actions ───────────────────────────────────────────────────── */
+.formActions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-top: 0.5rem;
+}
+
+.loading {
+  padding: 3rem;
+  text-align: center;
+  color: #666;
+  font-size: 1rem;
+}

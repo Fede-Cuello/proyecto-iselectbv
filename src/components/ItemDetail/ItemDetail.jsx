@@ -6,8 +6,8 @@ import { useState } from "react";
 
 export default function ItemDetail({ item }) {
   const navigate = useNavigate();
-  const [imagenActual, setImagenActual] = useState(item.imagen[0]);
-  const [precioActual, setPrecioActual] = useState(item.precio[0]);
+  const [imagenActual, setImagenActual] = useState(item.imagen?.[0]);
+  const [precioActual, setPrecioActual] = useState(item.precio?.[0]);
 
   const handleAlmacenamientoChange = (index) => {
     setPrecioActual(item.precio[index]);
@@ -29,7 +29,7 @@ export default function ItemDetail({ item }) {
               <div className={styles.colorSelector}>
                 {item.colores.map((color, index) => (
                   <button
-                    key={color}
+                    key={index}
                     style={{ backgroundColor: color }}
                     className={`${styles.colorButton} ${
                       imagenActual === item.imagen[index]
@@ -37,7 +37,7 @@ export default function ItemDetail({ item }) {
                         : ""
                     }`}
                     onClick={() => setImagenActual(item.imagen[index])}
-                    title={color}
+                    title={item.coloresNombres?.[index] || color}
                   />
                 ))}
               </div>
