@@ -1,0 +1,26 @@
+:root {
+  --rg-100: #F5EDE4;
+  --rg-200: #E8C9A8;
+  --rg-300: #D4B495;
+  --rg-400: #C9A380;
+  --rg-500: #B89070;
+  --rg-600: #9C7558;
+
+  --graphite-900: #1C1917;
+  --graphite-800: #252220;
+  --graphite-700: #2A2522;
+  --graphite-600: #2F2926;
+  --graphite-500: #3A3330;
+  --graphite-400: #463F3A;
+  --graphite-300: #5A524C;
+
+  --green-500: #10B981;
+  --green-600: #059669;
+
+  --on-dark-1: #FFFFFF;
+  --on-dark-2: rgba(255,255,255,0.78);
+  --on-dark-3: rgba(255,255,255,0.6);
+  --on-dark-4: rgba(255,255,255,0.4);
+
+  --font-mono: "JetBrains Mono", "SF Mono", ui-monospace, monospace;
+}

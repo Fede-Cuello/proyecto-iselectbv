@@ -1,0 +1,36 @@
+.products {
+  position: relative; overflow: hidden;
+  background: linear-gradient(180deg, #3A3330 0%, #2F2926 100%);
+  padding: 80px 60px; color: #fff;
+}
+.bgGrid {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(212,180,149,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(212,180,149,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  -webkit-mask-image: radial-gradient(circle at 20% 0%, black 0%, transparent 60%);
+          mask-image: radial-gradient(circle at 20% 0%, black 0%, transparent 60%);
+}
+.productsInner { position: relative; max-width: 1240px; margin: 0 auto; }
+.productsHeader { margin-bottom: 36px; }
+.eyebrow {
+  font-family: var(--font-mono); font-size: 11px; font-weight: 600;
+  color: var(--rg-300); letter-spacing: 0.2em; text-transform: uppercase;
+  display: flex; align-items: center; gap: 10px; margin-bottom: 10px;
+}
+.dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--rg-300); box-shadow: 0 0 8px var(--rg-300);
+  display: inline-block; flex-shrink: 0;
+}
+.productsTitle {
+  font-size: 44px; font-weight: 800; margin: 0; letter-spacing: -1.5px; line-height: 1.05;
+  background: linear-gradient(135deg, #FFFFFF 0%, #E8C9A8 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+
+@media (max-width: 900px) {
+  .products { padding: 50px 24px; }
+  .productsTitle { font-size: 32px; }
+}

@@ -1,67 +1,52 @@
-import { Container, Row, Col } from "react-bootstrap";
 import styles from "./AboutUs.module.css";
-import { FaShieldAlt, FaTruck, FaHeadset, FaCertificate } from "react-icons/fa";
+import { FaBoxOpen, FaCheckCircle, FaHeadset, FaTruck } from "react-icons/fa";
 
 export default function AboutUs() {
   const features = [
-    {
-      icon: <FaShieldAlt />,
-      title: "Garantía",
-      description: "Todos nuestros productos cuentan con garantía",
-    },
-    {
-      icon: <FaCertificate />,
-      title: "Calidad",
-      description: "Equipos verificados y en perfecto estado",
-    },
-    {
-      icon: <FaHeadset />,
-      title: "Atención",
-      description: "Asesoramiento personalizado por WhatsApp",
-    },
-    {
-      icon: <FaTruck />,
-      title: "Entrega",
-      description: "Coordinamos envío a todo el país",
-    },
+    { icon: <FaBoxOpen />, title: "Stock real", desc: "Lo que ves en la web está disponible. Sin falsas promesas." },
+    { icon: <FaCheckCircle />, title: "Equipos verificados", desc: "Cada unidad pasa por un control técnico antes de salir." },
+    { icon: <FaHeadset />, title: "Asesoramiento 1 a 1", desc: "Te ayudamos a elegir el modelo según tu uso real." },
+    { icon: <FaTruck />, title: "Envíos coordinados", desc: "Llegamos a todo el país con seguimiento del pedido." },
   ];
 
   return (
-    <section className={styles.aboutSection}>
-      <Container>
-        <Row className="align-items-center">
-          <Col md={6}>
-            <div className={styles.aboutContent}>
-              <h2 className={styles.aboutTitle}>¿Por qué IphoneSelectBV?</h2>
-              <p className={styles.aboutText}>
-                Somos una empresa dedicada a la venta de celulares y accesorios,
-                con años de experiencia en el mercado. Nos especializamos en
-                marcas premium como Samsung, Apple y PlayStation.
-              </p>
-              <p className={styles.aboutText}>
-                Ofrecemos tanto equipos nuevos sellados como usados en excelente
-                estado, todos verificados y con garantía. Tu confianza es
-                nuestra prioridad.
-              </p>
+    <section className={styles.about}>
+      <div className={styles.bgGrid} />
+      <div className={styles.inner}>
+        <div className={styles.left}>
+          <div className={styles.eyebrow}>
+            <span className={styles.dot} />
+            Quiénes somos · 03
+          </div>
+          <h2 className={styles.title}>
+            Más que una tienda,<br />
+            <span className={styles.grad}>una decisión informada</span>
+          </h2>
+          <p className={styles.lead}>
+            Trabajamos con Apple, Samsung y PlayStation desde Villa María. Vendemos equipos nuevos sellados y también recibimos usados en parte de pago, todo con la misma exigencia: que el cliente vuelva.
+          </p>
+          <p className={styles.lead}>
+            No somos una multinacional. Somos un equipo chico que conoce cada producto y cada cliente por su nombre.
+          </p>
+          <div className={styles.stat}>
+            <div className={styles.statNum}>5+</div>
+            <div>
+              <div className={styles.statTitle}>Años en el mercado</div>
+              <div className={styles.statSub}>+1.200 clientes en todo el país</div>
             </div>
-          </Col>
-          <Col md={6}>
-            <Row className="g-3">
-              {features.map((feature, index) => (
-                <Col key={index} xs={6}>
-                  <div className={styles.featureCard}>
-                    <div className={styles.featureIcon}>{feature.icon}</div>
-                    <h4 className={styles.featureTitle}>{feature.title}</h4>
-                    <p className={styles.featureDescription}>
-                      {feature.description}
-                    </p>
-                  </div>
-                </Col>
-              ))}
-            </Row>
-          </Col>
-        </Row>
-      </Container>
+          </div>
+        </div>
+
+        <div className={styles.features}>
+          {features.map(f => (
+            <div className={styles.feat} key={f.title}>
+              <div className={styles.featIcon}>{f.icon}</div>
+              <div className={styles.featTitle}>{f.title}</div>
+              <div className={styles.featDesc}>{f.desc}</div>
+            </div>
+          ))}
+        </div>
+      </div>
     </section>
   );
 }

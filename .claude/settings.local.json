@@ -1,0 +1,29 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem -Path \"D:\\\\Usuario\\\\Desktop\\\\Escritorio\\\\fede\\\\iselectbv\" -Force)",
+      "Bash(Select-Object Name, PSIsContainer)",
+      "Bash(Format-Table -AutoSize)",
+      "Bash(Get-ChildItem -Path \"D:\\\\Usuario\\\\Desktop\\\\migracion\" -Recurse -Force)",
+      "Bash(Select-Object FullName, PSIsContainer)",
+      "Bash(ConvertTo-Json)",
+      "Bash(Get-ChildItem -Path \"D:\\\\Usuario\\\\Downloads\\\\imagenes\" -Recurse -Force)",
+      "Bash(ConvertTo-Json -Depth 100)",
+      "PowerShell(Get-ChildItem -Path \"D:\\\\Usuario\\\\Desktop\\\\migracion\" -Recurse -Force | Select-Object FullName, @{Name=\"IsDir\"; Expression={$_.PSIsContainer}})",
+      "PowerShell(Get-ChildItem -Path \"D:\\\\Usuario\\\\Desktop\\\\Escritorio\\\\fede\\\\iselectbv\\\\src\" -Recurse -Force | Select-Object FullName | ForEach-Object { $_.FullName.Replace\\('D:\\\\Usuario\\\\Desktop\\\\Escritorio\\\\fede\\\\iselectbv\\\\', ''\\) })",
+      "PowerShell(Get-ChildItem -Path \"D:\\\\Usuario\\\\Downloads\\\\imagenes\" -Recurse -File | Group-Object Extension | Select-Object @{Name='Extension';Expression={$_.Name}}, @{Name='Count';Expression={$_.Count}} | Sort-Object Count -Descending)",
+      "Bash(grep -v \"^\\\\.$\")",
+      "Bash(grep -v \"^\\\\.\\\\.$\")",
+      "PowerShell(Get-ChildItem -Path \"D:\\\\Usuario\\\\Desktop\\\\migracion\" -Depth 2 -Force | Where-Object {$_.FullName -notmatch 'node_modules'} | Select-Object FullName, @{Name=\"Type\"; Expression={if\\($_.PSIsContainer\\){\"Folder\"}else{\"File\"}}})",
+      "PowerShell(Get-ChildItem -Path \"D:\\\\Usuario\\\\Downloads\\\\imagenes\" -Directory | ForEach-Object { $folder = $_; $count = \\(Get-ChildItem -Path $folder.FullName -File | Measure-Object\\).Count; [PSCustomObject]@{Folder=$folder.Name; FileCount=$count} })",
+      "PowerShell(Get-ChildItem -Path \"D:\\\\Usuario\\\\Desktop\\\\migracion\" -Force | Where-Object {$_.Name -ne 'node_modules'} | Format-List FullName, PSIsContainer)",
+      "PowerShell($imageExtensions = @\\('.webp', '.jpg', '.jpeg', '.png', '.gif', '.bmp', '.svg', '.tiff'\\); $files = Get-ChildItem -Path \"D:\\\\Usuario\\\\Downloads\\\\imagenes\" -Recurse -File; $nonImage = $files | Where-Object { $_.Extension -notin $imageExtensions }; if \\($nonImage\\) { Write-Host \"Non-image files found:\"; $nonImage | Select-Object FullName, Name, Extension } else { Write-Host \"No non-image files found\" })",
+      "Read(//d/Usuario/Desktop/migracion/migracion-firebase/**)",
+      "Read(//d/Usuario/Desktop/migracion/**)",
+      "PowerShell(Get-Item \"D:\\\\Usuario\\\\Desktop\\\\migracion\" | Select-Object FullName, @{Name=\"IsDirectory\"; Expression={$_.PSIsContainer}})",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)"
+    ]
+  }
+}

@@ -1,89 +1,98 @@
-import { Container, Row, Col, Card } from "react-bootstrap";
 import styles from "./CategoriesHighlight.module.css";
 import { useNavigate } from "react-router";
-import { FaMobileAlt, FaApple, FaGamepad, FaWhatsapp } from "react-icons/fa";
+import { FaMobileAlt, FaApple, FaGamepad } from "react-icons/fa";
 import { SiSamsung } from "react-icons/si";
 
 export default function CategoriesHighlight() {
   const navigate = useNavigate();
 
   const categories = [
-    {
-      name: "Samsung",
-      icon: <SiSamsung />,
-      description: "Los mejores Galaxy",
-      path: "/category/samsung",
-    },
-    {
-      name: "Apple",
-      icon: <FaApple />,
-      description: "iPhones originales",
-      path: "/category/apple",
-    },
-    {
-      name: "PlayStation",
-      icon: <FaGamepad />,
-      description: "Consolas y juegos",
-      path: "/category/consolas",
-    },
-    {
-      name: "Nuevos",
-      icon: <FaMobileAlt />,
-      description: "Equipos sellados",
-      path: "/estado/sellados",
-    },
+    { name: "Samsung", icon: <SiSamsung />, desc: "Galaxy S · A · Z Fold", count: "12", path: "/category/samsung", tag: "HOT" },
+    { name: "Apple", icon: <FaApple />, desc: "iPhone · Watch · AirPods", count: "20", path: "/category/apple", tag: "TOP" },
+    { name: "PlayStation", icon: <FaGamepad />, desc: "Consolas y accesorios", count: "8", path: "/category/consolas" },
+    { name: "Sellados", icon: <FaMobileAlt />, desc: "Equipos 100% nuevos", count: "15", path: "/estado/sellados" },
   ];
 
   return (
-    <section className={styles.categoriesSection}>
-      <Container>
-        {/* Logo arriba */}
-        <div className={styles.logoContainer}>
-          <img
-            src="/logo-circular.png"
-            alt="IphoneSelectbv"
-            className={styles.logo}
-            onClick={() => navigate("/")}
-          />
+    <>
+      <section className={styles.catalogHeader}>
+        <div className={styles.bgGrid} />
+        <div className={styles.glow} />
+        <div className={styles.inner}>
+          <div className={styles.left}>
+            <div className={styles.brand}>
+              <div className={styles.logoBox} onClick={() => navigate("/")}>
+                <img src="/logo-circular.png" alt="IphoneSelectBV" />
+              </div>
+              <div>
+                <div className={styles.brandName}>IphoneSelectBv</div>
+                <div className={styles.brandSub}>tienda oficial</div>
+              </div>
+            </div>
 
-          {/* WhatsApp en la esquina */}
-          <a
-            href="https://wa.me/5493537301603?text=Hola%20quiero%20consultar"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.whatsappButton}
-          >
-            <FaWhatsapp className={styles.whatsappIcon} />
-            <span className={styles.whatsappText}>Contacto</span>
-          </a>
+            <div className={styles.eyebrow}>
+              <span className={styles.dot} />
+              Catálogo · 04 categorías
+            </div>
+
+            <h2 className={styles.title}>
+              Explorá<br />
+              <span className={styles.grad}>por categoría</span>
+            </h2>
+
+            <p className={styles.lead}>
+              Encontrá exactamente lo que buscás. Productos seleccionados con garantía oficial.
+            </p>
+          </div>
+
+          <aside className={styles.panel}>
+            <div className={styles.chips}>
+              <div className={styles.chip}>
+                <div className={styles.chipNum}>✓</div>
+                <div className={styles.chipLabel}>Recibimos usados</div>
+              </div>
+              <div className={styles.chip}>
+                <div className={styles.chipNum}>24h</div>
+                <div className={styles.chipLabel}>Entregas en el día</div>
+              </div>
+              <div className={styles.chip}>
+                <div className={styles.chipNum}>12m</div>
+                <div className={styles.chipLabel}>Garantía oficial</div>
+              </div>
+              <div className={styles.chip}>
+                <div className={styles.chipNum}>★</div>
+                <div className={styles.chipLabel}>Confianza · +5 años</div>
+              </div>
+            </div>
+            <a href="https://wa.me/5493537301603" className={styles.ctaWsp} target="_blank" rel="noopener noreferrer">
+              <span>✆</span> Consultar por WhatsApp
+            </a>
+            <div className={styles.online}>
+              <span className={styles.dotGreen} />
+              Respuesta en menos de 1 hora
+            </div>
+          </aside>
         </div>
+      </section>
 
-        <div className={styles.sectionHeader}>
-          <h2 className={styles.sectionTitle}>Explorá por categoría</h2>
-          <p className={styles.sectionSubtitle}>
-            Encontrá exactamente lo que buscás
-          </p>
-        </div>
-
-        <Row className="g-4">
-          {categories.map((category) => (
-            <Col key={category.name} xs={6} md={3}>
-              <Card
-                className={styles.categoryCard}
-                onClick={() => navigate(category.path)}
-              >
-                <Card.Body className={styles.categoryCardBody}>
-                  <div className={styles.categoryIcon}>{category.icon}</div>
-                  <h3 className={styles.categoryName}>{category.name}</h3>
-                  <p className={styles.categoryDescription}>
-                    {category.description}
-                  </p>
-                </Card.Body>
-              </Card>
-            </Col>
+      <section className={styles.categories}>
+        <div className={styles.categoriesGrid}>
+          {categories.map(c => (
+            <article className={styles.catCard} key={c.name} onClick={() => navigate(c.path)}>
+              {c.tag && <span className={styles.catCardTag}>{c.tag}</span>}
+              <span className={`${styles.corner} ${styles.cornerTl}`} />
+              <span className={`${styles.corner} ${styles.cornerTr}`} />
+              <span className={`${styles.corner} ${styles.cornerBl}`} />
+              <span className={`${styles.corner} ${styles.cornerBr}`} />
+              <div className={styles.catHalo} />
+              <div className={styles.catIcon}>{c.icon}</div>
+              <div className={styles.catName}>{c.name}</div>
+              <div className={styles.catDesc}>{c.desc}</div>
+              <div className={styles.catCount}>· {c.count} productos ·</div>
+            </article>
           ))}
-        </Row>
-      </Container>
-    </section>
+        </div>
+      </section>
+    </>
   );
 }

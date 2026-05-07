@@ -7,20 +7,19 @@ import { toast } from "react-toastify";
 import Hero from "./Hero/Hero";
 import CategoriesHighlight from "./CategoriesHighlight/CategoriesHighlight";
 import AboutUs from "./AboutUs/AboutUs";
+import styles from "./ProductsSection.module.css";
 
 const ItemsListWithLoading = withLoading(ItemList);
 
 export default function ItemListContainer() {
   const [items, setItems] = useState(null);
   const { categoriaElegida, estadoElegido } = useParams();
-
   const isHomePage = !categoriaElegida && !estadoElegido;
 
   useEffect(() => {
     const getAllProducts = async () => {
       try {
         let products;
-
         if (categoriaElegida) {
           products = await getProdByCat(categoriaElegida.toLowerCase());
         } else if (estadoElegido) {
@@ -28,7 +27,6 @@ export default function ItemListContainer() {
         } else {
           products = await getProducts();
         }
-
         setItems(products);
       } catch (error) {
         console.error("Error al obtener productos:", error);
@@ -36,33 +34,35 @@ export default function ItemListContainer() {
         setItems([]);
       }
     };
-
     getAllProducts();
   }, [categoriaElegida, estadoElegido]);
+
+  const sectionTitle = categoriaElegida
+    ? categoriaElegida.charAt(0).toUpperCase() + categoriaElegida.slice(1)
+    : estadoElegido
+    ? `Productos ${estadoElegido}`
+    : "Todos nuestros productos";
+
+  const eyebrowCount = items ? `${items.length} disponibles` : "Cargando...";
 
   return (
     <div>
       {isHomePage && <Hero />}
       {isHomePage && <CategoriesHighlight />}
 
-      <div id="productos" style={{ paddingTop: isHomePage ? "0" : "2rem" }}>
-        <h2
-          className="text-center my-3"
-          style={{
-            fontSize: "2rem",
-            fontWeight: "700",
-            color: "#0A1F44",
-            paddingTop: isHomePage ? "3rem" : "0",
-          }}
-        >
-          {categoriaElegida
-            ? `${categoriaElegida.charAt(0).toUpperCase() + categoriaElegida.slice(1)}`
-            : estadoElegido
-              ? `Productos ${estadoElegido}`
-              : "Todos nuestros productos"}
-        </h2>
-        <ItemsListWithLoading items={items} />
-      </div>
+      <section id="productos" className={styles.products}>
+        <div className={styles.bgGrid} />
+        <div className={styles.productsInner}>
+          <header className={styles.productsHeader}>
+            <div className={styles.eyebrow}>
+              <span className={styles.dot} />
+              Catálogo · {eyebrowCount}
+            </div>
+            <h2 className={styles.productsTitle}>{sectionTitle}</h2>
+          </header>
+          <ItemsListWithLoading items={items} />
+        </div>
+      </section>
 
       {isHomePage && <AboutUs />}
     </div>
