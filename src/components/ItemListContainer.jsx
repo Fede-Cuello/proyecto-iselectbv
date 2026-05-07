@@ -4,10 +4,10 @@ import { useParams } from "react-router";
 import { getProducts, getProdByCat, getProdByEstado } from "../firebase/supabaseDb";
 import { withLoading } from "../hoc/withLoading";
 import { toast } from "react-toastify";
-import Hero from "./Hero/Hero";
 import CategoriesHighlight from "./CategoriesHighlight/CategoriesHighlight";
 import AboutUs from "./AboutUs/AboutUs";
 import styles from "./ProductsSection.module.css";
+import { useNavigate } from "react-router";
 
 const ItemsListWithLoading = withLoading(ItemList);
 
@@ -15,6 +15,7 @@ export default function ItemListContainer() {
   const [items, setItems] = useState(null);
   const { categoriaElegida, estadoElegido } = useParams();
   const isHomePage = !categoriaElegida && !estadoElegido;
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getAllProducts = async () => {
@@ -47,12 +48,18 @@ export default function ItemListContainer() {
 
   return (
     <div>
-      {isHomePage && <Hero />}
       {isHomePage && <CategoriesHighlight />}
 
       <section id="productos" className={styles.products}>
         <div className={styles.bgGrid} />
         <div className={styles.productsInner}>
+          {!isHomePage && (
+            <div className={styles.backBar}>
+              <button className={styles.backBtn} onClick={() => navigate("/")}>
+                ← Volver al inicio
+              </button>
+            </div>
+          )}
           <header className={styles.productsHeader}>
             <div className={styles.eyebrow}>
               <span className={styles.dot} />

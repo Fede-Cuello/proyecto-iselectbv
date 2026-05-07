@@ -24,18 +24,8 @@ export default function Footer() {
         <div className={styles.col}>
           <div className={styles.heading}>· Contacto</div>
           <ul className={styles.list}>
-            <li><FaWhatsapp /> +54 9 3537 30-1603</li>
-            <li><span>◉</span> Villa María, Córdoba</li>
-            <li><span>✉</span> hola@iphoneselectbv.com</li>
-          </ul>
-        </div>
-
-        <div className={styles.col}>
-          <div className={styles.heading}>· Horarios</div>
-          <ul className={styles.hours}>
-            <li><span>Lun – Vie</span><b>9:00 – 20:00</b></li>
-            <li><span>Sábado</span><b>9:00 – 14:00</b></li>
-            <li><span>Domingo</span><b className={styles.off}>Cerrado</b></li>
+            <li><FaWhatsapp /><a href="https://wa.me/5493537301603" target="_blank" rel="noopener noreferrer">+54 9 3537 30-1603</a></li>
+            <li><span>◉</span> Bell Ville, Córdoba</li>
           </ul>
         </div>
 
@@ -48,7 +38,7 @@ export default function Footer() {
             <a href="#" aria-label="Instagram"><FaInstagram /></a>
             <a href="#" aria-label="Facebook"><FaFacebook /></a>
           </div>
-          <p className={styles.socialSub}>Seguinos para novedades de stock y promos.</p>
+          <p className={styles.socialSub}>Seguinos para novedades de stock y promos exclusivas.</p>
         </div>
       </div>
 

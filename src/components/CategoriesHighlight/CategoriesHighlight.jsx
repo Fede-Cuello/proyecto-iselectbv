@@ -10,7 +10,7 @@ export default function CategoriesHighlight() {
     { name: "Samsung", icon: <SiSamsung />, desc: "Galaxy S · A · Z Fold", count: "12", path: "/category/samsung", tag: "HOT" },
     { name: "Apple", icon: <FaApple />, desc: "iPhone · Watch · AirPods", count: "20", path: "/category/apple", tag: "TOP" },
     { name: "PlayStation", icon: <FaGamepad />, desc: "Consolas y accesorios", count: "8", path: "/category/consolas" },
-    { name: "Sellados", icon: <FaMobileAlt />, desc: "Equipos 100% nuevos", count: "15", path: "/estado/sellados" },
+    { name: "Usados", icon: <FaMobileAlt />, desc: "Equipos revisados y verificados", count: "15", path: "/estado/usados" },
   ];
 
   return (
@@ -32,7 +32,7 @@ export default function CategoriesHighlight() {
 
             <div className={styles.eyebrow}>
               <span className={styles.dot} />
-              Catálogo · 04 categorías
+              Catálogo · categorías
             </div>
 
             <h2 className={styles.title}>
@@ -88,7 +88,6 @@ export default function CategoriesHighlight() {
               <div className={styles.catIcon}>{c.icon}</div>
               <div className={styles.catName}>{c.name}</div>
               <div className={styles.catDesc}>{c.desc}</div>
-              <div className={styles.catCount}>· {c.count} productos ·</div>
             </article>
           ))}
         </div>

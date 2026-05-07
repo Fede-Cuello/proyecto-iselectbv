@@ -16,7 +16,7 @@ export default function AboutUs() {
         <div className={styles.left}>
           <div className={styles.eyebrow}>
             <span className={styles.dot} />
-            Quiénes somos · 03
+            Quiénes somos
           </div>
           <h2 className={styles.title}>
             Más que una tienda,<br />

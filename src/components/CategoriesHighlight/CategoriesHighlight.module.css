@@ -26,15 +26,13 @@
 }
 .brand { display: flex; align-items: center; gap: 14px; margin-bottom: 32px; }
 .logoBox {
-  width: 56px; height: 56px; border-radius: 14px;
-  background: linear-gradient(135deg, #FFFFFF 0%, #F5EDE4 100%);
+  width: 88px; height: 88px;
   display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.8);
-  cursor: pointer; overflow: hidden; flex-shrink: 0;
+  cursor: pointer; flex-shrink: 0;
 }
-.logoBox img { width: 40px; height: 40px; object-fit: contain; }
-.brandName { font-size: 18px; font-weight: 700; letter-spacing: -0.4px; }
-.brandSub { font-family: var(--font-mono); font-size: 11px; color: var(--rg-300); letter-spacing: 0.1em; margin-top: 2px; }
+.logoBox img { width: 88px; height: 88px; object-fit: contain; }
+.brandName { font-size: 30px; font-weight: 700; letter-spacing: -0.8px; }
+.brandSub { font-family: var(--font-mono); font-size: 13px; color: var(--rg-300); letter-spacing: 0.1em; margin-top: 5px; }
 
 .eyebrow {
   font-family: var(--font-mono); font-size: 11px; font-weight: 600;
@@ -46,7 +44,7 @@
   background: var(--rg-300); box-shadow: 0 0 8px var(--rg-300);
   display: inline-block; flex-shrink: 0;
 }
-.title { font-size: 56px; font-weight: 800; margin: 0; letter-spacing: -2px; line-height: 1.05; }
+.title { font-size: 52px; font-weight: 800; margin: 0; letter-spacing: -1.5px; line-height: 1.05; }
 .grad {
   background: linear-gradient(135deg, #FFFFFF 0%, #E8C9A8 50%, #C9A380 100%);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
@@ -146,7 +144,7 @@
 @media (max-width: 900px) {
   .catalogHeader { padding: 50px 24px; }
   .inner { grid-template-columns: 1fr; gap: 32px; }
-  .title { font-size: 38px; letter-spacing: -1px; }
+  .title { font-size: 40px; letter-spacing: -1.5px; }
   .categories { padding: 0 24px 50px; }
   .categoriesGrid { grid-template-columns: repeat(2, 1fr); }
 }

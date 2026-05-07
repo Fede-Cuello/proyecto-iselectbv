@@ -30,6 +30,16 @@
   -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
 }
 
+.backBar { margin-bottom: 28px; }
+.backBtn {
+  font-family: var(--font-mono); font-size: 12px; font-weight: 600;
+  color: var(--rg-300); letter-spacing: 0.15em; text-transform: uppercase;
+  background: rgba(212,180,149,0.08); border: 1px solid rgba(212,180,149,0.2);
+  padding: 9px 18px; border-radius: 10px; cursor: pointer;
+  transition: all .2s ease;
+}
+.backBtn:hover { background: rgba(212,180,149,0.18); color: var(--rg-200); border-color: var(--rg-300); }
+
 @media (max-width: 900px) {
   .products { padding: 50px 24px; }
   .productsTitle { font-size: 32px; }
