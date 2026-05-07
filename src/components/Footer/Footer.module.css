@@ -20,7 +20,7 @@
 }
 .logoBox img { width: 48px; height: 48px; object-fit: contain; }
 .brandName { font-size: 20px; font-weight: 700; letter-spacing: -0.3px; }
-.about { font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.7; margin: 0 0 20px; }
+.about { font-family: var(--font-mono); font-size: 12px; color: rgba(255,255,255,0.6); line-height: 1.8; margin: 0 0 20px; }
 .status {
   display: inline-flex; align-items: center; gap: 8px;
   padding: 7px 14px; border-radius: 20px;
@@ -51,7 +51,7 @@
   transition: all .25s ease;
 }
 .social a:hover { background: linear-gradient(135deg, var(--rg-400), var(--rg-300)); color: #1A1A1A; transform: translateY(-4px); box-shadow: 0 8px 20px rgba(201,163,128,0.3); }
-.socialSub { margin-top: 18px; font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.6; }
+.socialSub { font-family: var(--font-mono); margin-top: 18px; font-size: 11px; color: rgba(255,255,255,0.55); line-height: 1.7; }
 
 .bottom {
   max-width: 1240px; margin: 52px auto 0; padding-top: 24px;

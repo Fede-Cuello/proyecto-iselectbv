@@ -85,7 +85,7 @@
   font-family: var(--font-mono); font-size: 10px; font-weight: 600;
   color: var(--rg-300); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 10px;
 }
-.desc { font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.7; margin: 0; white-space: pre-line; }
+.desc { font-family: var(--font-mono); font-size: 12px; color: rgba(255,255,255,0.7); line-height: 1.8; margin: 0; white-space: pre-line; }
 
 .storages { display: flex; gap: 10px; flex-wrap: wrap; }
 .storageBtn {

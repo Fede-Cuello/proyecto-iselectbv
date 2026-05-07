@@ -31,7 +31,7 @@
   background: linear-gradient(135deg, #FFFFFF 0%, #E8C9A8 100%);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
 }
-.lead { font-size: 15px; color: rgba(255,255,255,0.7); margin-top: 16px; line-height: 1.7; }
+.lead { font-family: var(--font-mono); font-size: 13px; color: rgba(255,255,255,0.7); margin-top: 16px; line-height: 1.8; }
 .stat {
   margin-top: 32px; padding: 20px 24px;
   background: rgba(212,180,149,0.08);
@@ -58,7 +58,7 @@
   font-size: 20px; color: var(--rg-200);
 }
 .featTitle { font-size: 16px; font-weight: 700; margin-top: 4px; }
-.featDesc { font-size: 13px; color: rgba(255,255,255,0.65); line-height: 1.5; }
+.featDesc { font-family: var(--font-mono); font-size: 12px; color: rgba(255,255,255,0.65); line-height: 1.6; }
 
 @media (max-width: 900px) {
   .about { padding: 60px 24px; }

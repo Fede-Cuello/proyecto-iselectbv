@@ -41,7 +41,7 @@ export default function CategoriesHighlight() {
             </h2>
 
             <p className={styles.lead}>
-              Encontrá exactamente lo que buscás. Productos seleccionados con garantía oficial.
+              Encontrá exactamente lo que buscás.
             </p>
           </div>
 
@@ -56,8 +56,8 @@ export default function CategoriesHighlight() {
                 <div className={styles.chipLabel}>Entregas en el día</div>
               </div>
               <div className={styles.chip}>
-                <div className={styles.chipNum}>12m</div>
-                <div className={styles.chipLabel}>Garantía oficial</div>
+                <div className={styles.chipNum}>→</div>
+                <div className={styles.chipLabel}>Lo traemos a pedido</div>
               </div>
               <div className={styles.chip}>
                 <div className={styles.chipNum}>★</div>
@@ -69,7 +69,7 @@ export default function CategoriesHighlight() {
             </a>
             <div className={styles.online}>
               <span className={styles.dotGreen} />
-              Respuesta en menos de 1 hora
+              Respuesta en menos de 1 hora · garantía en todos los equipos
             </div>
           </aside>
         </div>
