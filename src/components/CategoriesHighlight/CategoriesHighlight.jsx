@@ -47,19 +47,19 @@ export default function CategoriesHighlight() {
 
           <aside className={styles.panel}>
             <div className={styles.chips}>
-              <div className={styles.chip}>
+              <div className={`${styles.chip} ${styles.chipBig}`}>
                 <div className={styles.chipNum}>✓</div>
-                <div className={styles.chipLabel}>Recibimos usados</div>
+                <div className={styles.chipLabel}>Tomamos tu equipo en parte de pago</div>
               </div>
-              <div className={styles.chip}>
+              <div className={`${styles.chip} ${styles.chipBig}`}>
+                <div className={styles.chipNum}>→</div>
+                <div className={styles.chipLabel}>Si no está, lo buscamos para vos</div>
+              </div>
+              <div className={`${styles.chip} ${styles.chipSmall}`}>
                 <div className={styles.chipNum}>24h</div>
                 <div className={styles.chipLabel}>Entregas en el día</div>
               </div>
-              <div className={styles.chip}>
-                <div className={styles.chipNum}>→</div>
-                <div className={styles.chipLabel}>Lo traemos a pedido</div>
-              </div>
-              <div className={styles.chip}>
+              <div className={`${styles.chip} ${styles.chipSmall}`}>
                 <div className={styles.chipNum}>★</div>
                 <div className={styles.chipLabel}>Confianza · +5 años</div>
               </div>
