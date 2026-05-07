@@ -7,7 +7,7 @@ import {
 import styles from '../admin.module.css'
 
 const CATEGORIAS = ['apple', 'samsung', 'consolas']
-const ESTADOS = ['sellados', 'usado']
+const ESTADOS = ['sellados', 'usados']
 
 const FORM_VACIO = {
   nombre: '', categoria: 'apple', estado: 'sellados',
