@@ -1,6 +1,6 @@
 import styles from "./CategoriesHighlight.module.css";
 import { useNavigate } from "react-router";
-import { FaMobileAlt, FaApple, FaGamepad } from "react-icons/fa";
+import { FaMobileAlt, FaApple, FaGamepad, FaSearch } from "react-icons/fa";
 import { SiSamsung } from "react-icons/si";
 
 export default function CategoriesHighlight() {
@@ -52,8 +52,8 @@ export default function CategoriesHighlight() {
                 <div className={styles.chipLabel}>Tomamos tu equipo en parte de pago</div>
               </div>
               <div className={`${styles.chip} ${styles.chipBig}`}>
-                <div className={styles.chipNum}>→</div>
-                <div className={styles.chipLabel}>Si no está, lo buscamos para vos</div>
+                <div className={styles.chipNum}><FaSearch /></div>
+                <div className={styles.chipLabel}>Si no está lo que buscás, lo pedimos para vos</div>
               </div>
               <div className={`${styles.chip} ${styles.chipSmall}`}>
                 <div className={styles.chipNum}>24h</div>
