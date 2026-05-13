@@ -48,16 +48,49 @@
   padding: 5px 10px; border-radius: 20px;
   background: rgba(212,180,149,0.1); border: 1px solid rgba(212,180,149,0.25);
 }
-.swatches { margin-top: 24px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+.swatches {
+  margin-top: 24px;
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.swatchCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 14px;
+  padding: 8px;
+  color: rgba(255,255,255,0.72);
+  cursor: pointer;
+  transition: border-color .25s ease, background .25s ease, color .25s ease;
+}
+.swatchCardActive {
+  border-color: rgba(212,180,149,0.35);
+  background: rgba(255,255,255,0.03);
+  color: #fff;
+}
 .swatch {
   width: 44px; height: 44px; border-radius: 50%;
   border: 2px solid rgba(255,255,255,0.15);
   box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-  cursor: pointer; transition: all .25s ease; padding: 0;
+  transition: all .25s ease; padding: 0;
 }
 .swatchActive {
   border-color: var(--rg-300);
   box-shadow: 0 0 0 4px rgba(212,180,149,0.2), 0 4px 12px rgba(0,0,0,0.3);
+}
+.swatchLabel {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 1.4;
+  max-width: 88px;
 }
 
 .info { display: flex; flex-direction: column; }
@@ -77,7 +110,7 @@
   background: linear-gradient(135deg, #FFFFFF 0%, #E8C9A8 100%);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
 }
-.colorLine { font-size: 14px; color: rgba(255,255,255,0.6); margin: 10px 0 0; line-height: 1.6; }
+.colorLine { font-size: 14px; color: rgba(255,255,255,0.6); margin: 16px 0 0; line-height: 1.6; text-align: center; }
 .colorLine span { color: var(--rg-200); font-weight: 600; }
 
 .field { margin-top: 24px; }
@@ -166,4 +199,7 @@
   .detailGrid { grid-template-columns: 1fr; gap: 32px; }
   .title { font-size: 36px; letter-spacing: -1px; }
   .ctas { grid-template-columns: 1fr; }
+  .swatches { gap: 8px; }
+  .swatchCard { padding: 6px; }
+  .swatchLabel { font-size: 9px; max-width: 72px; }
 }

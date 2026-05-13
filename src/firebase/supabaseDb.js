@@ -1,14 +1,28 @@
 import { supabase } from './supabase'
 
 // Transforma filas de DB al formato que esperan los componentes
+function normalizarNombreColor(nombre) {
+  return String(nombre || '')
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean)
+    .map(parte => parte.charAt(0).toUpperCase() + parte.slice(1))
+    .join(' ')
+}
+
 function normalizar(prod) {
   const imgs = (prod.imagenes || []).sort((a, b) => a.orden - b.orden)
   const vars = (prod.variantes || [])
   return {
     ...prod,
+    imagenesDetalle: imgs.map(i => ({
+      url: i.url,
+      color: normalizarNombreColor(i.color),
+      color_css: i.color_css || i.color || '#d4b495',
+    })),
     imagen: imgs.map(i => i.url),
     colores: imgs.map(i => i.color_css || i.color),
-    coloresNombres: imgs.map(i => i.color),
+    coloresNombres: imgs.map(i => normalizarNombreColor(i.color)),
     almacenamiento: vars.map(v => v.almacenamiento),
     precio: vars.map(v => String(v.precio)),
   }

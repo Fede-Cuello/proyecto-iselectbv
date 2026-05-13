@@ -1,8 +1,6 @@
-import {Container, Nav, Navbar,NavDropdown} from "react-bootstrap"
+import {Container, Nav, Navbar} from "react-bootstrap"
 import styles from "./NavBar.module.css"
-import { useEffect, useState } from "react"
 import { NavLink } from "react-router"
-import { getCategorias } from "../../firebase/db"
 import { FaWhatsapp } from "react-icons/fa"
 
 
@@ -26,7 +24,7 @@ export default function NavBar() {
           {/* Contacto a la derecha */}
           <div className="position-absolute end-0 me-3">
             <a
-              href="https://wa.me/5493537301603?text=Hola%20quiero%20consultar"
+              href="https://wa.me/5493537673531?text=Hola%20quiero%20consultar"
               target="_blank"
               rel="noopener noreferrer"
               className={styles.whatsappLink}
@@ -52,7 +50,10 @@ export default function NavBar() {
           <NavLink to="/estado/sellados" className={styles.navBarLink}>
             Nuevos
           </NavLink>
-          <NavLink to="/estado/usado" className={styles.navBarLink}>
+          <NavLink to="/estado/seminuevos" className={styles.navBarLink}>
+            Semi nuevos
+          </NavLink>
+          <NavLink to="/estado/usados" className={styles.navBarLink}>
             Usados
           </NavLink>
           <NavLink to="/category/consolas" className={styles.navBarLink}>

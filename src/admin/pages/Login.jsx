@@ -14,7 +14,7 @@ export default function Login() {
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (session) navigate('/admin/productos')
     })
-  }, [])
+  }, [navigate])
 
   const handleLogin = async (e) => {
     e.preventDefault()

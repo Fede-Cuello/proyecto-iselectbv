@@ -1,39 +1,64 @@
-import { useState } from "react";
-import styles from "./ItemDetail.module.css";
-import { FaWhatsapp } from "react-icons/fa";
-import { useNavigate } from "react-router";
+import { useMemo, useState } from 'react'
+import { FaWhatsapp } from 'react-icons/fa'
+import { useNavigate } from 'react-router'
+import styles from './ItemDetail.module.css'
+
+function formatearTexto(valor = '') {
+  return String(valor)
+    .replace(/-/g, ' ')
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean)
+    .map(parte => parte.charAt(0).toUpperCase() + parte.slice(1))
+    .join(' ')
+}
 
 export default function ItemDetail({ item }) {
-  const navigate = useNavigate();
-  const [colorIndex, setColorIndex] = useState(0);
-  const [storageIndex, setStorageIndex] = useState(0);
+  const navigate = useNavigate()
+  const [colorIndex, setColorIndex] = useState(0)
+  const [storageIndex, setStorageIndex] = useState(0)
 
-  const imagenActual = item.imagen?.[colorIndex];
-  const precioActual = item.precio?.[storageIndex];
-  const colorLabel = item.coloresNombres?.[colorIndex] || "";
+  const opcionesColor = useMemo(() => {
+    if (item.imagenesDetalle?.length) return item.imagenesDetalle
 
-  const categoriaLabel = item.categoria
-    ? item.categoria.charAt(0).toUpperCase() + item.categoria.slice(1)
-    : "";
+    return (item.imagen || []).map((url, index) => ({
+      url,
+      color: item.coloresNombres?.[index] || '',
+      color_css: item.colores?.[index] || '#d4b495',
+    }))
+  }, [item])
+
+  const colorActivo = opcionesColor[colorIndex] || opcionesColor[0] || {}
+  const precioActual = item.precio?.[storageIndex]
+  const colorLabel = formatearTexto(colorActivo.color)
+  const categoriaLabel = formatearTexto(item.categoria)
+  const estadoLabel = formatearTexto(item.estado || 'sellados')
 
   const whatsappMsg = encodeURIComponent(
     `Hola, estoy interesado en el producto: ${item?.nombre}` +
-      (colorLabel ? `, Color: ${colorLabel}` : "") +
-      (item?.almacenamiento?.[storageIndex] ? `, Almacenamiento: ${item.almacenamiento[storageIndex]}` : "") +
+      (colorLabel ? `, Color: ${colorLabel}` : '') +
+      (item?.almacenamiento?.[storageIndex]
+        ? `, Almacenamiento: ${item.almacenamiento[storageIndex]}`
+        : '') +
       `, Precio: $${precioActual} USD`
-  );
+  )
 
   return (
     <section className={styles.detail}>
       <div className={styles.bgGrid} />
       <div className={styles.detailInner}>
         <nav className={styles.crumb}>
-          <span className={styles.crumbDot}>·</span>
-          <span className={styles.crumbLink} onClick={() => navigate("/")}>Catálogo</span>
+          <span className={styles.crumbDot}>.</span>
+          <span className={styles.crumbLink} onClick={() => navigate('/')}>
+            Catalogo
+          </span>
           {categoriaLabel && (
             <>
               <span className={styles.sep}>/</span>
-              <span className={styles.crumbLink} onClick={() => navigate(`/category/${item.categoria}`)}>
+              <span
+                className={styles.crumbLink}
+                onClick={() => navigate(`/category/${item.categoria}`)}
+              >
                 {categoriaLabel}
               </span>
             </>
@@ -46,54 +71,73 @@ export default function ItemDetail({ item }) {
           <div className={styles.gallery}>
             <div className={styles.imageBox}>
               {colorLabel && <span className={styles.imageTag}>{colorLabel}</span>}
-              <img src={imagenActual} alt={`${item.nombre} ${colorLabel}`} />
+              <img src={colorActivo.url} alt={`${item.nombre} ${colorLabel}`.trim()} />
             </div>
-            {item.colores?.length > 0 && (
-              <div className={styles.swatches}>
-                {item.colores.map((color, index) => (
-                  <button
-                    key={index}
-                    className={`${styles.swatch} ${colorIndex === index ? styles.swatchActive : ""}`}
-                    style={{ background: color }}
-                    onClick={() => setColorIndex(index)}
-                    title={item.coloresNombres?.[index] || color}
-                    aria-label={item.coloresNombres?.[index] || color}
-                  />
-                ))}
-              </div>
+
+            {opcionesColor.length > 0 && (
+              <>
+                <div className={styles.swatches}>
+                  {opcionesColor.map((color, index) => {
+                    const nombre = formatearTexto(color.color) || `Color ${index + 1}`
+                    return (
+                      <button
+                        key={`${nombre}-${index}`}
+                        className={`${styles.swatchCard} ${
+                          colorIndex === index ? styles.swatchCardActive : ''
+                        }`}
+                        onClick={() => setColorIndex(index)}
+                        type="button"
+                      >
+                        <span
+                          className={`${styles.swatch} ${
+                            colorIndex === index ? styles.swatchActive : ''
+                          }`}
+                          style={{ background: color.color_css || '#d4b495' }}
+                          title={nombre}
+                          aria-label={nombre}
+                        />
+                        <span className={styles.swatchLabel}>{nombre}</span>
+                      </button>
+                    )
+                  })}
+                </div>
+                {colorLabel && (
+                  <p className={styles.colorLine}>
+                    Color seleccionado <span>{colorLabel}</span>
+                  </p>
+                )}
+              </>
             )}
           </div>
 
           <div className={styles.info}>
             <div className={styles.eyebrow}>
               <span className={styles.dot} />
-              {categoriaLabel}{item.estado ? ` · ${item.estado}` : ""}
+              {categoriaLabel}
+              {item.estado ? ` · ${estadoLabel}` : ''}
             </div>
 
             <h1 className={styles.title}>{item.nombre}</h1>
 
-            {colorLabel && (
-              <p className={styles.colorLine}>
-                Color seleccionado · <span>{colorLabel}</span>
-              </p>
-            )}
-
             {item.descripcion && (
               <div className={styles.field}>
-                <div className={styles.fieldLabel}>· Descripción</div>
+                <div className={styles.fieldLabel}>Descripcion</div>
                 <p className={styles.desc}>{item.descripcion}</p>
               </div>
             )}
 
             {item.almacenamiento?.length > 0 && (
               <div className={styles.field}>
-                <div className={styles.fieldLabel}>· Almacenamiento</div>
+                <div className={styles.fieldLabel}>Almacenamiento</div>
                 <div className={styles.storages}>
                   {item.almacenamiento.map((alm, index) => (
                     <button
                       key={alm}
-                      className={`${styles.storageBtn} ${storageIndex === index ? styles.storageBtnActive : ""}`}
+                      className={`${styles.storageBtn} ${
+                        storageIndex === index ? styles.storageBtnActive : ''
+                      }`}
                       onClick={() => setStorageIndex(index)}
+                      type="button"
                     >
                       <span className={styles.storageLabel}>{alm}</span>
                       <span className={styles.storagePrice}>USD {item.precio?.[index]}</span>
@@ -118,20 +162,20 @@ export default function ItemDetail({ item }) {
             <div className={styles.ctas}>
               <a
                 className={styles.ctaWsp}
-                href={`https://wa.me/5493537301603?text=${whatsappMsg}`}
+                href={`https://wa.me/5493537673531?text=${whatsappMsg}`}
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 <FaWhatsapp /> Consultar por WhatsApp
               </a>
-              <button className={styles.ctaBack} onClick={() => navigate("/")}>
-                ← Volver
+              <button className={styles.ctaBack} onClick={() => navigate('/')} type="button">
+                Volver
               </button>
             </div>
 
             <div className={styles.meta}>
               <div>
-                <div className={styles.metaLabel}>Garantía</div>
+                <div className={styles.metaLabel}>Garantia</div>
                 <div className={styles.metaVal}>12 meses</div>
               </div>
               <div>
@@ -140,16 +184,12 @@ export default function ItemDetail({ item }) {
               </div>
               <div>
                 <div className={styles.metaLabel}>Estado</div>
-                <div className={styles.metaVal}>
-                  {item.estado
-                    ? item.estado.charAt(0).toUpperCase() + item.estado.slice(1)
-                    : "Sellado"}
-                </div>
+                <div className={styles.metaVal}>{estadoLabel}</div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </section>
-  );
+  )
 }

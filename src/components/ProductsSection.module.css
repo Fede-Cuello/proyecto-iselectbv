@@ -29,6 +29,46 @@
   background: linear-gradient(135deg, #FFFFFF 0%, #E8C9A8 100%);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
 }
+.featuredBlock {
+  margin-bottom: 42px;
+  padding: 24px;
+  border-radius: 24px;
+  background: linear-gradient(145deg, rgba(212,180,149,0.12) 0%, rgba(255,255,255,0.02) 100%);
+  border: 1px solid rgba(212,180,149,0.2);
+  box-shadow: 0 16px 36px rgba(0,0,0,0.18);
+}
+.featuredHeader {
+  margin-bottom: 22px;
+}
+.featuredEyebrow,
+.subEyebrow {
+  font-family: var(--font-mono); font-size: 10px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--rg-300);
+  margin-bottom: 8px;
+}
+.featuredTitle,
+.subTitle {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.8px;
+  color: #fff;
+}
+.featuredText {
+  margin: 10px 0 0;
+  max-width: 620px;
+  color: rgba(255,255,255,0.62);
+  font-size: 14px;
+  line-height: 1.6;
+}
+.catalogBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.subHeader {
+  margin-bottom: 8px;
+}
 
 .backBar { margin-bottom: 28px; }
 .backBtn {
@@ -43,4 +83,8 @@
 @media (max-width: 900px) {
   .products { padding: 50px 24px; }
   .productsTitle { font-size: 32px; }
+  .featuredBlock { padding: 18px; margin-bottom: 30px; }
+  .featuredTitle,
+  .subTitle { font-size: 22px; }
+  .featuredText { font-size: 13px; }
 }

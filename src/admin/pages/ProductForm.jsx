@@ -1,17 +1,27 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
 import {
-  getProductAdmin, createProduct, updateProductData,
-  replaceVariantes, replaceImagenes, insertImagenes, uploadProductImage
+  getProductAdmin,
+  createProduct,
+  updateProductData,
+  replaceVariantes,
+  replaceImagenes,
+  insertImagenes,
+  uploadProductImage,
 } from '../../firebase/supabaseDb'
 import styles from '../admin.module.css'
 
 const CATEGORIAS = ['apple', 'samsung', 'consolas']
-const ESTADOS = ['sellados', 'usados']
+const ESTADOS = ['sellados', 'usados', 'seminuevos']
 
 const FORM_VACIO = {
-  nombre: '', categoria: 'apple', estado: 'sellados',
-  descripcion: '', activo: true, destacado: false, orden: 0
+  nombre: '',
+  categoria: 'apple',
+  estado: 'sellados',
+  descripcion: '',
+  activo: true,
+  destacado: false,
+  orden: 0,
 }
 
 const VARIANTE_VACIA = { almacenamiento: '', precio: '', stock: 0 }
@@ -31,10 +41,15 @@ export default function ProductForm() {
 
   useEffect(() => {
     if (!esEdicion) return
+
     const cargar = async () => {
       try {
         const prod = await getProductAdmin(id)
-        if (!prod) return navigate('/admin/productos')
+        if (!prod) {
+          navigate('/admin/productos')
+          return
+        }
+
         setForm({
           nombre: prod.nombre,
           categoria: prod.categoria,
@@ -44,6 +59,7 @@ export default function ProductForm() {
           destacado: prod.destacado,
           orden: prod.orden,
         })
+
         setVariantes(
           prod.variantes.length > 0
             ? prod.variantes.map(v => ({
@@ -53,23 +69,35 @@ export default function ProductForm() {
               }))
             : [{ ...VARIANTE_VACIA }]
         )
-        setImagenesExistentes((prod.imagenes || []).sort((a, b) => a.orden - b.orden))
+
+        setImagenesExistentes(
+          (prod.imagenes || [])
+            .sort((a, b) => a.orden - b.orden)
+            .map(img => ({
+              ...img,
+              color: img.color || '',
+              color_css: img.color_css || '#1c1c1e',
+            }))
+        )
       } catch {
         navigate('/admin/productos')
       }
     }
+
     cargar()
-  }, [id])
+  }, [esEdicion, id, navigate])
 
-  const setField = (field, value) => setForm(f => ({ ...f, [field]: value }))
+  const setField = (field, value) => setForm(prev => ({ ...prev, [field]: value }))
 
-  const addVariante = () => setVariantes(v => [...v, { ...VARIANTE_VACIA }])
-  const removeVariante = (i) => setVariantes(v => v.filter((_, idx) => idx !== i))
-  const updateVariante = (i, field, val) =>
-    setVariantes(v => v.map((item, idx) => idx === i ? { ...item, [field]: val } : item))
+  const addVariante = () => setVariantes(prev => [...prev, { ...VARIANTE_VACIA }])
+  const removeVariante = (indice) => setVariantes(prev => prev.filter((_, idx) => idx !== indice))
+  const updateVariante = (indice, field, value) =>
+    setVariantes(prev =>
+      prev.map((item, idx) => (idx === indice ? { ...item, [field]: value } : item))
+    )
 
   const handleFiles = (e) => {
-    const files = Array.from(e.target.files)
+    const files = Array.from(e.target.files || [])
     const nuevas = files.map(file => ({
       file,
       previewUrl: URL.createObjectURL(file),
@@ -80,83 +108,103 @@ export default function ProductForm() {
     e.target.value = ''
   }
 
-  const removeNueva = (i) => {
+  const removeNueva = (indice) => {
     setImagenesNuevas(prev => {
-      URL.revokeObjectURL(prev[i].previewUrl)
-      return prev.filter((_, idx) => idx !== i)
+      URL.revokeObjectURL(prev[indice].previewUrl)
+      return prev.filter((_, idx) => idx !== indice)
     })
   }
 
-  const updateNueva = (i, field, val) =>
-    setImagenesNuevas(prev => prev.map((x, idx) => idx === i ? { ...x, [field]: val } : x))
+  const updateNueva = (indice, field, value) =>
+    setImagenesNuevas(prev =>
+      prev.map((item, idx) => (idx === indice ? { ...item, [field]: value } : item))
+    )
+
+  const updateExistente = (imgId, field, value) =>
+    setImagenesExistentes(prev =>
+      prev.map(img => (img.id === imgId ? { ...img, [field]: value } : img))
+    )
 
   const toggleBorrar = (imgId) =>
     setImagenesABorrar(prev =>
-      prev.includes(imgId) ? prev.filter(x => x !== imgId) : [...prev, imgId]
+      prev.includes(imgId) ? prev.filter(item => item !== imgId) : [...prev, imgId]
     )
 
   const validar = () => {
     if (!form.nombre.trim()) return 'El nombre es obligatorio'
-    if (variantes.some(v => !v.almacenamiento.trim() || !v.precio)) return 'Completá almacenamiento y precio en todas las variantes'
-    if (variantes.some(v => isNaN(parseFloat(v.precio)))) return 'El precio debe ser un número'
+    if (variantes.some(v => !v.almacenamiento.trim() || !v.precio)) {
+      return 'Completa almacenamiento y precio en todas las variantes'
+    }
+    if (variantes.some(v => Number.isNaN(parseFloat(v.precio)))) {
+      return 'El precio debe ser un numero'
+    }
     return null
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     const err = validar()
-    if (err) { setError(err); return }
+    if (err) {
+      setError(err)
+      return
+    }
+
     setSaving(true)
     setError('')
 
     const variantesLimpias = variantes.map(v => ({
       almacenamiento: v.almacenamiento.trim(),
       precio: parseFloat(v.precio),
-      stock: parseInt(v.stock) || 0,
+      stock: parseInt(v.stock, 10) || 0,
     }))
 
     try {
       if (!esEdicion) {
-        // Crear producto + variantes
         const nuevoProd = await createProduct(form, variantesLimpias)
-
-        // Subir imágenes y guardar en tabla imagenes
         const imgs = []
-        for (let i = 0; i < imagenesNuevas.length; i++) {
+
+        for (let i = 0; i < imagenesNuevas.length; i += 1) {
           const img = imagenesNuevas[i]
           const url = await uploadProductImage(nuevoProd.id, img.file)
-          imgs.push({ url, color: img.color, color_css: img.color_css, orden: i })
+          imgs.push({
+            url,
+            color: img.color.trim(),
+            color_css: img.color_css,
+            orden: i,
+          })
         }
+
         if (imgs.length > 0) {
           await insertImagenes(nuevoProd.id, imgs)
         }
       } else {
-        // Actualizar datos del producto
         await updateProductData(id, form)
-
-        // Reemplazar variantes
         await replaceVariantes(id, variantesLimpias)
 
-        // Construir lista final de imágenes
         let orden = 0
         const imagenesFinales = []
 
-        // Mantener las existentes no borradas
         for (const img of imagenesExistentes) {
           if (!imagenesABorrar.includes(img.id)) {
             imagenesFinales.push({
               url: img.url,
-              color: img.color,
+              color: img.color.trim(),
               color_css: img.color_css,
-              orden: orden++,
+              orden: orden,
             })
+            orden += 1
           }
         }
 
-        // Subir y agregar las nuevas
         for (const img of imagenesNuevas) {
           const url = await uploadProductImage(id, img.file)
-          imagenesFinales.push({ url, color: img.color, color_css: img.color_css, orden: orden++ })
+          imagenesFinales.push({
+            url,
+            color: img.color.trim(),
+            color_css: img.color_css,
+            orden: orden,
+          })
+          orden += 1
         }
 
         await replaceImagenes(id, imagenesFinales)
@@ -164,7 +212,7 @@ export default function ProductForm() {
 
       navigate('/admin/productos')
     } catch (err) {
-      setError(err.message || 'Error al guardar. Intentá de nuevo.')
+      setError(err.message || 'Error al guardar. Intenta de nuevo.')
       setSaving(false)
     }
   }
@@ -174,9 +222,8 @@ export default function ProductForm() {
       <h1>{esEdicion ? 'Editar producto' : 'Nuevo producto'}</h1>
 
       <form onSubmit={handleSubmit}>
-        {/* Datos básicos */}
         <section className={styles.formSection}>
-          <h3>Datos básicos</h3>
+          <h3>Datos basicos</h3>
           <div className={styles.formGrid}>
             <div className={styles.formGroup}>
               <label>Nombre *</label>
@@ -188,35 +235,37 @@ export default function ProductForm() {
               />
             </div>
             <div className={styles.formGroup}>
-              <label>Categoría</label>
+              <label>Categoria</label>
               <select value={form.categoria} onChange={e => setField('categoria', e.target.value)}>
-                {CATEGORIAS.map(c => <option key={c} value={c}>{c}</option>)}
+                {CATEGORIAS.map(c => (
+                  <option key={c} value={c}>
+                    {c}
+                  </option>
+                ))}
               </select>
             </div>
             <div className={styles.formGroup}>
               <label>Estado</label>
               <select value={form.estado} onChange={e => setField('estado', e.target.value)}>
-                {ESTADOS.map(s => <option key={s} value={s}>{s}</option>)}
+                {ESTADOS.map(estado => (
+                  <option key={estado} value={estado}>
+                    {estado}
+                  </option>
+                ))}
               </select>
             </div>
-            <div className={styles.formGroup}>
-              <label>Orden (número menor aparece primero)</label>
-              <input
-                type="number"
-                value={form.orden}
-                onChange={e => setField('orden', parseInt(e.target.value) || 0)}
-              />
-            </div>
           </div>
+
           <div className={styles.formGroup}>
-            <label>Descripción</label>
+            <label>Descripcion</label>
             <textarea
               value={form.descripcion}
               onChange={e => setField('descripcion', e.target.value)}
               rows={3}
-              placeholder="Descripción opcional del producto..."
+              placeholder="Descripcion opcional del producto..."
             />
           </div>
+
           <div className={styles.checkboxRow}>
             <label>
               <input
@@ -237,17 +286,16 @@ export default function ProductForm() {
           </div>
         </section>
 
-        {/* Variantes */}
         <section className={styles.formSection}>
           <h3>Variantes (almacenamiento y precio)</h3>
-          {variantes.map((v, i) => (
-            <div key={i} className={styles.varianteRow}>
+          {variantes.map((variante, indice) => (
+            <div key={indice} className={styles.varianteRow}>
               <div className={styles.formGroup}>
                 <label>Almacenamiento</label>
                 <input
                   placeholder="128GB"
-                  value={v.almacenamiento}
-                  onChange={e => updateVariante(i, 'almacenamiento', e.target.value)}
+                  value={variante.almacenamiento}
+                  onChange={e => updateVariante(indice, 'almacenamiento', e.target.value)}
                 />
               </div>
               <div className={styles.formGroup}>
@@ -257,8 +305,8 @@ export default function ProductForm() {
                   step="0.01"
                   min="0"
                   placeholder="999"
-                  value={v.precio}
-                  onChange={e => updateVariante(i, 'precio', e.target.value)}
+                  value={variante.precio}
+                  onChange={e => updateVariante(indice, 'precio', e.target.value)}
                 />
               </div>
               <div className={styles.formGroup}>
@@ -266,13 +314,17 @@ export default function ProductForm() {
                 <input
                   type="number"
                   min="0"
-                  value={v.stock}
-                  onChange={e => updateVariante(i, 'stock', e.target.value)}
+                  value={variante.stock}
+                  onChange={e => updateVariante(indice, 'stock', e.target.value)}
                 />
               </div>
               {variantes.length > 1 && (
-                <button type="button" onClick={() => removeVariante(i)} className={styles.btnRemove}>
-                  ✕
+                <button
+                  type="button"
+                  onClick={() => removeVariante(indice)}
+                  className={styles.btnRemove}
+                >
+                  X
                 </button>
               )}
             </div>
@@ -282,29 +334,47 @@ export default function ProductForm() {
           </button>
         </section>
 
-        {/* Imágenes actuales (solo edición) */}
         {esEdicion && imagenesExistentes.length > 0 && (
           <section className={styles.formSection}>
-            <h3>Imágenes actuales</h3>
+            <h3>Imagenes actuales</h3>
             <div className={styles.imageGrid}>
               {imagenesExistentes.map(img => (
                 <div
                   key={img.id}
-                  className={`${styles.imageCard} ${imagenesABorrar.includes(img.id) ? styles.imageToDelete : ''}`}
+                  className={`${styles.imageCard} ${
+                    imagenesABorrar.includes(img.id) ? styles.imageToDelete : ''
+                  }`}
                 >
                   <img src={img.url} alt={img.color || 'imagen'} />
                   <div className={styles.imageInfo}>
-                    <span>{img.color || '—'}</span>
-                    {img.color_css && (
-                      <div className={styles.colorDot} style={{ backgroundColor: img.color_css }} />
-                    )}
+                    <span>{img.color || '-'}</span>
+                    <div className={styles.colorDot} style={{ backgroundColor: img.color_css }} />
+                  </div>
+                  <div className={styles.imageFields}>
+                    <input
+                      type="text"
+                      placeholder="Nombre real del color (ej: Desert Titanium)"
+                      value={img.color}
+                      onChange={e => updateExistente(img.id, 'color', e.target.value)}
+                      disabled={imagenesABorrar.includes(img.id)}
+                    />
+                    <div className={styles.colorRow}>
+                      <input
+                        type="color"
+                        value={img.color_css}
+                        onChange={e => updateExistente(img.id, 'color_css', e.target.value)}
+                        title="Color del selector"
+                        disabled={imagenesABorrar.includes(img.id)}
+                      />
+                      <span>Color del selector</span>
+                    </div>
                   </div>
                   <button
                     type="button"
                     onClick={() => toggleBorrar(img.id)}
                     className={styles.btnRemoveImg}
                   >
-                    {imagenesABorrar.includes(img.id) ? '↩ Restaurar' : '✕ Quitar'}
+                    {imagenesABorrar.includes(img.id) ? 'Restaurar' : 'Quitar'}
                   </button>
                 </div>
               ))}
@@ -312,9 +382,8 @@ export default function ProductForm() {
           </section>
         )}
 
-        {/* Nuevas imágenes */}
         <section className={styles.formSection}>
-          <h3>{esEdicion ? 'Agregar nuevas imágenes' : 'Imágenes del producto'}</h3>
+          <h3>{esEdicion ? 'Agregar nuevas imagenes' : 'Imagenes del producto'}</h3>
           <input
             type="file"
             accept="image/*"
@@ -324,28 +393,32 @@ export default function ProductForm() {
           />
           {imagenesNuevas.length > 0 && (
             <div className={styles.imageGrid}>
-              {imagenesNuevas.map((img, i) => (
-                <div key={i} className={styles.imageCard}>
+              {imagenesNuevas.map((img, indice) => (
+                <div key={indice} className={styles.imageCard}>
                   <img src={img.previewUrl} alt="nueva imagen" />
                   <div className={styles.imageFields}>
                     <input
                       type="text"
-                      placeholder="Nombre del color (ej: Negro)"
+                      placeholder="Nombre real del color (ej: Desert Titanium)"
                       value={img.color}
-                      onChange={e => updateNueva(i, 'color', e.target.value)}
+                      onChange={e => updateNueva(indice, 'color', e.target.value)}
                     />
                     <div className={styles.colorRow}>
                       <input
                         type="color"
                         value={img.color_css}
-                        onChange={e => updateNueva(i, 'color_css', e.target.value)}
+                        onChange={e => updateNueva(indice, 'color_css', e.target.value)}
                         title="Color del selector"
                       />
-                      <span>Color del botón</span>
+                      <span>Color del selector</span>
                     </div>
                   </div>
-                  <button type="button" onClick={() => removeNueva(i)} className={styles.btnRemoveImg}>
-                    ✕ Quitar
+                  <button
+                    type="button"
+                    onClick={() => removeNueva(indice)}
+                    className={styles.btnRemoveImg}
+                  >
+                    Quitar
                   </button>
                 </div>
               ))}

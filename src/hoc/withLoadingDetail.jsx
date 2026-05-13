@@ -1,6 +1,6 @@
 import { Spinner } from "react-bootstrap";
 
-export const withLoadingDetail = (Component) => {
+export const withLoadingDetail = (WrappedComponent) => {
   function ComponentWithLoading(props) {
     if (!props.item) {
       return (
@@ -11,7 +11,7 @@ export const withLoadingDetail = (Component) => {
       )
     }
       return (
-        <Component {...props} />
+        WrappedComponent(props)
     )
   }
   return ComponentWithLoading

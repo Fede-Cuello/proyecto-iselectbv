@@ -32,7 +32,7 @@ export default function ItemDetailContainer() {
       }
 
       getProductById()
-    }, [id])
+    }, [id, navigate])
     
     return (
         <ItemDetailWithLoading item={detail} />

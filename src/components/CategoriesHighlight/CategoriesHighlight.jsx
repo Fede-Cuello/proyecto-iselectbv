@@ -1,7 +1,7 @@
-import styles from "./CategoriesHighlight.module.css";
 import { useNavigate } from "react-router";
 import { FaMobileAlt, FaApple, FaGamepad, FaSearch } from "react-icons/fa";
 import { SiSamsung } from "react-icons/si";
+import styles from "./CategoriesHighlight.module.css";
 
 export default function CategoriesHighlight() {
   const navigate = useNavigate();
@@ -10,7 +10,7 @@ export default function CategoriesHighlight() {
     { name: "Samsung", icon: <SiSamsung />, desc: "Galaxy S · A · Z Fold", count: "12", path: "/category/samsung", tag: "HOT" },
     { name: "Apple", icon: <FaApple />, desc: "iPhone · Watch · AirPods", count: "20", path: "/category/apple", tag: "TOP" },
     { name: "PlayStation", icon: <FaGamepad />, desc: "Consolas y accesorios", count: "8", path: "/category/consolas" },
-    { name: "Usados", icon: <FaMobileAlt />, desc: "Equipos revisados y verificados", count: "15", path: "/estado/usados" },
+    { name: "Semi nuevos", icon: <FaMobileAlt />, desc: "Equipos revisados y verificados", count: "15", path: "/estado/seminuevos" },
   ];
 
   return (
@@ -32,17 +32,16 @@ export default function CategoriesHighlight() {
 
             <div className={styles.eyebrow}>
               <span className={styles.dot} />
-              Catálogo · categorías
+              Catalogo · categorias
             </div>
 
             <h2 className={styles.title}>
-              Explorá<br />
-              <span className={styles.grad}>por categoría</span>
+              Explora
+              <br />
+              <span className={styles.grad}>por categoria</span>
             </h2>
 
-            <p className={styles.lead}>
-              Encontrá exactamente lo que buscás.
-            </p>
+            <p className={styles.lead}>Encontra exactamente lo que buscas.</p>
           </div>
 
           <aside className={styles.panel}>
@@ -52,24 +51,31 @@ export default function CategoriesHighlight() {
                 <div className={styles.chipLabel}>Tomamos tu equipo en parte de pago</div>
               </div>
               <div className={`${styles.chip} ${styles.chipBig}`}>
-                <div className={styles.chipNum}><FaSearch /></div>
-                <div className={styles.chipLabel}>Si no está lo que buscás, lo pedimos para vos</div>
+                <div className={styles.chipNum}>
+                  <FaSearch />
+                </div>
+                <div className={styles.chipLabel}>Si no esta lo que buscas, lo pedimos para vos</div>
               </div>
               <div className={`${styles.chip} ${styles.chipSmall}`}>
                 <div className={styles.chipNum}>24h</div>
-                <div className={styles.chipLabel}>Entregas en el día</div>
+                <div className={styles.chipLabel}>Entregas en el dia</div>
               </div>
               <div className={`${styles.chip} ${styles.chipSmall}`}>
                 <div className={styles.chipNum}>★</div>
                 <div className={styles.chipLabel}>Confianza · +5 años</div>
               </div>
             </div>
-            <a href="https://wa.me/5493537301603" className={styles.ctaWsp} target="_blank" rel="noopener noreferrer">
-              <span>✆</span> Consultar por WhatsApp
+            <a
+              href="https://wa.me/5493537673531"
+              className={styles.ctaWsp}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span>✦</span> Consultar por WhatsApp
             </a>
             <div className={styles.online}>
               <span className={styles.dotGreen} />
-              Respuesta en menos de 1 hora · garantía en todos los equipos
+              Respuesta en menos de 1 hora · garantia en todos los equipos
             </div>
           </aside>
         </div>
@@ -77,7 +83,7 @@ export default function CategoriesHighlight() {
 
       <section className={styles.categories}>
         <div className={styles.categoriesGrid}>
-          {categories.map(c => (
+          {categories.map((c) => (
             <article className={styles.catCard} key={c.name} onClick={() => navigate(c.path)}>
               {c.tag && <span className={styles.catCardTag}>{c.tag}</span>}
               <span className={`${styles.corner} ${styles.cornerTl}`} />

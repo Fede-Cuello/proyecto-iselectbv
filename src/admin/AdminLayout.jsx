@@ -21,7 +21,7 @@ export default function AdminLayout() {
     })
 
     return () => subscription.unsubscribe()
-  }, [])
+  }, [navigate])
 
   const handleLogout = async () => {
     await supabase.auth.signOut()

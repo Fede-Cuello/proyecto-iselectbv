@@ -1,10 +1,7 @@
 import { Container, Button } from "react-bootstrap";
 import styles from "./Hero.module.css";
-import { useNavigate } from "react-router";
 
 export default function Hero() {
-  const navigate = useNavigate();
-
   return (
     <section className={styles.heroSection}>
       <Container className={styles.heroContainer}>
@@ -33,7 +30,7 @@ export default function Hero() {
               variant="outline-light"
               size="lg"
               className={styles.heroContactBtn}
-              href="https://wa.me/5493537301603?text=Hola%20quiero%20consultar"
+              href="https://wa.me/5493537673531?text=Hola%20quiero%20consultar"
               target="_blank"
             >
               Contactanos
