@@ -23,7 +23,7 @@ export default function AboutUs() {
             <span className={styles.grad}>una decisión informada</span>
           </h2>
           <p className={styles.lead}>
-            Trabajamos con Apple, Samsung y PlayStation desde Villa María. Vendemos equipos nuevos sellados y también recibimos usados en parte de pago, todo con la misma exigencia: que el cliente vuelva.
+            Trabajamos con Apple, Samsung y PlayStation desde Bell Ville y la zona. Vendemos equipos nuevos sellados y también recibimos usados en parte de pago, todo con la misma exigencia: que el cliente vuelva.
           </p>
           <p className={styles.lead}>
             No somos una multinacional. Somos un equipo chico que conoce cada producto y cada cliente por su nombre.
