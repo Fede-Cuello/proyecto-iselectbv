@@ -546,13 +546,23 @@
   color: #666;
 }
 
-.colorRow input[type="color"] {
-  width: 32px;
-  height: 28px;
-  padding: 2px;
+.colorRow select {
+  flex: 1;
+  padding: 6px 8px;
   border: 1.5px solid #ddd;
   border-radius: 6px;
+  font-size: 0.82rem;
+  background: #fff;
   cursor: pointer;
+  min-width: 0;
+}
+
+.colorSwatch {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1.5px solid #ccc;
+  flex-shrink: 0;
 }
 
 /* ── Form actions ───────────────────────────────────────────────────── */

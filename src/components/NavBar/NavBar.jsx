@@ -50,7 +50,7 @@ export default function NavBar() {
           <NavLink to="/estado/sellados" className={styles.navBarLink}>
             Nuevos
           </NavLink>
-          <NavLink to="/estado/seminuevos" className={styles.navBarLink}>
+          <NavLink to="/category/seminuevos" className={styles.navBarLink}>
             Semi nuevos
           </NavLink>
           <NavLink to="/estado/usados" className={styles.navBarLink}>

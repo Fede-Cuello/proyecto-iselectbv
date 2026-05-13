@@ -11,8 +11,182 @@ import {
 } from '../../firebase/supabaseDb'
 import styles from '../admin.module.css'
 
-const CATEGORIAS = ['apple', 'samsung', 'consolas']
-const ESTADOS = ['sellados', 'usados', 'seminuevos']
+const CATEGORIAS = ['apple', 'samsung', 'seminuevos', 'consolas']
+const ESTADOS = ['sellados', 'usados']
+
+const COLORES_GRUPOS = [
+  {
+    grupo: 'Apple — iPhone 13 / 13 mini',
+    colores: [
+      { nombre: 'Starlight',     css: '#F5E4CF' },
+      { nombre: 'Midnight',      css: '#111214' },
+      { nombre: 'Blue',          css: '#4F8FB5' },
+      { nombre: 'Pink',          css: '#F2A7B0' },
+      { nombre: 'Green',         css: '#4A9A7A' },
+      { nombre: '(PRODUCT)RED',  css: '#BF0000' },
+    ],
+  },
+  {
+    grupo: 'Apple — iPhone 13 Pro / Pro Max',
+    colores: [
+      { nombre: 'Graphite',      css: '#4A4A4A' },
+      { nombre: 'Silver',        css: '#C8C7C2' },
+      { nombre: 'Gold',          css: '#D4AF7A' },
+      { nombre: 'Sierra Blue',   css: '#6B9DB5' },
+      { nombre: 'Alpine Green',  css: '#4A7A5A' },
+    ],
+  },
+  {
+    grupo: 'Apple — iPhone 14 / 14 Plus',
+    colores: [
+      { nombre: 'Starlight',     css: '#F5E4CF' },
+      { nombre: 'Midnight',      css: '#111214' },
+      { nombre: 'Blue',          css: '#276987' },
+      { nombre: 'Purple',        css: '#9B8EB8' },
+      { nombre: 'Yellow',        css: '#F5E100' },
+      { nombre: '(PRODUCT)RED',  css: '#BF0000' },
+    ],
+  },
+  {
+    grupo: 'Apple — iPhone 14 Pro / Pro Max',
+    colores: [
+      { nombre: 'Space Black',   css: '#1A1A1A' },
+      { nombre: 'Silver',        css: '#C8C7C2' },
+      { nombre: 'Gold',          css: '#D4AF7A' },
+      { nombre: 'Deep Purple',   css: '#4B3B6B' },
+    ],
+  },
+  {
+    grupo: 'Apple — iPhone 15 / 15 Plus',
+    colores: [
+      { nombre: 'Black',         css: '#1C1C1E' },
+      { nombre: 'Blue',          css: '#5B9EC9' },
+      { nombre: 'Green',         css: '#5A9A6A' },
+      { nombre: 'Yellow',        css: '#F5E100' },
+      { nombre: 'Pink',          css: '#F4B8C8' },
+    ],
+  },
+  {
+    grupo: 'Apple — iPhone 15 Pro / Pro Max',
+    colores: [
+      { nombre: 'Black Titanium',   css: '#2C2C2C' },
+      { nombre: 'White Titanium',   css: '#E8E3DE' },
+      { nombre: 'Blue Titanium',    css: '#4A7A9B' },
+      { nombre: 'Natural Titanium', css: '#B5AFA0' },
+    ],
+  },
+  {
+    grupo: 'Apple — iPhone 16 / 16 Plus',
+    colores: [
+      { nombre: 'Ultramarine',   css: '#3B4F8C' },
+      { nombre: 'Teal',          css: '#3D7A70' },
+      { nombre: 'Pink',          css: '#F2A7B0' },
+      { nombre: 'White',         css: '#F7F7F5' },
+      { nombre: 'Black',         css: '#1C1C1E' },
+    ],
+  },
+  {
+    grupo: 'Apple — iPhone 16 Pro / Pro Max',
+    colores: [
+      { nombre: 'Space Black',      css: '#1A1A1A' },
+      { nombre: 'Silver',           css: '#C8C7C2' },
+      { nombre: 'Gold',             css: '#D4AF7A' },
+      { nombre: 'Deep Blue',        css: '#1E3A5F' },
+      { nombre: 'Desert Titanium',  css: '#C4A882' },
+      { nombre: 'White Titanium',   css: '#E8E3DE' },
+      { nombre: 'Black Titanium',   css: '#2C2C2C' },
+      { nombre: 'Natural Titanium', css: '#B5AFA0' },
+    ],
+  },
+  {
+    grupo: 'Apple — iPhone 17 (2025)',
+    colores: [
+      { nombre: 'Lavender',      css: '#C8B8D8' },
+      { nombre: 'Sage',          css: '#7A9A7A' },
+      { nombre: 'Mist Blue',     css: '#87AABF' },
+      { nombre: 'White',         css: '#F7F7F5' },
+      { nombre: 'Black',         css: '#1C1C1E' },
+      { nombre: 'Cosmic Orange', css: '#D4742A' },
+    ],
+  },
+  {
+    grupo: 'Apple — iPhone 18 Pro (rumores 2026)',
+    colores: [
+      { nombre: 'Light Blue',    css: '#87CEEB' },
+      { nombre: 'Dark Cherry',   css: '#5A1A2A' },
+      { nombre: 'Dark Gray',     css: '#3A3A3A' },
+      { nombre: 'Silver',        css: '#C8C7C2' },
+    ],
+  },
+  {
+    grupo: 'Samsung — Galaxy S (general)',
+    colores: [
+      { nombre: 'Phantom Black',   css: '#0D0D0E' },
+      { nombre: 'Phantom White',   css: '#F5F5F5' },
+      { nombre: 'Ceramic White',   css: '#FAFAFA' },
+      { nombre: 'Silver',          css: '#C8C7C2' },
+      { nombre: 'Silver Shadow',   css: '#B8B8C0' },
+      { nombre: 'Graphite',        css: '#4A4A4A' },
+      { nombre: 'Sky Blue',        css: '#8FC8E8' },
+      { nombre: 'Ice Blue',        css: '#A8D8E8' },
+      { nombre: 'Arctic Blue',     css: '#5A9EC8' },
+      { nombre: 'Navy Blue',       css: '#1B2D4A' },
+      { nombre: 'Cobalt Violet',   css: '#5A4A8C' },
+      { nombre: 'Bora Purple',     css: '#7B5EA7' },
+      { nombre: 'Deep Purple',     css: '#4B3B6B' },
+      { nombre: 'Burgundy',        css: '#6A1A2A' },
+      { nombre: 'Aura Red',        css: '#CC2200' },
+      { nombre: 'Rose Pink',       css: '#E8909A' },
+      { nombre: 'Phantom Green',   css: '#3A6A5A' },
+      { nombre: 'Emerald Green',   css: '#2A8A5A' },
+      { nombre: 'Mint',            css: '#7ACFBA' },
+      { nombre: 'Lime',            css: '#C8E05A' },
+      { nombre: 'Yellow',          css: '#F5E100' },
+      { nombre: 'Gold',            css: '#D4AF7A' },
+      { nombre: 'Champagne Gold',  css: '#E8D8B8' },
+      { nombre: 'Rose Gold',       css: '#E8B8A8' },
+      { nombre: 'Mystic Bronze',   css: '#9A7A5A' },
+      { nombre: 'Copper',          css: '#B87333' },
+      { nombre: 'Cream',           css: '#F5E4D3' },
+      { nombre: 'Peach',           css: '#F0C8A8' },
+    ],
+  },
+  {
+    grupo: 'Samsung — Titanio (S24 / S25 Ultra)',
+    colores: [
+      { nombre: 'Titanium Black',  css: '#151515' },
+      { nombre: 'Titanium Gray',   css: '#6A6A6E' },
+      { nombre: 'Titanium Silver', css: '#D8D8D8' },
+      { nombre: 'Titanium Blue',   css: '#3A6A9B' },
+      { nombre: 'Titanium Violet', css: '#6B5A9B' },
+      { nombre: 'Titanium Yellow', css: '#F5D030' },
+      { nombre: 'Titanium Green',  css: '#3D6A48' },
+      { nombre: 'Titanium Orange', css: '#E07820' },
+    ],
+  },
+  {
+    grupo: 'Samsung — Galaxy Z (Fold / Flip)',
+    colores: [
+      { nombre: 'Icy Blue',        css: '#A8D8E8' },
+      { nombre: 'Lavender',        css: '#C8B8D8' },
+      { nombre: 'Coral',           css: '#E8785A' },
+      { nombre: 'Cream',           css: '#F5E4D3' },
+    ],
+  },
+  {
+    grupo: 'Samsung — Galaxy A',
+    colores: [
+      { nombre: 'Awesome Black',   css: '#1C1C1E' },
+      { nombre: 'Awesome White',   css: '#F7F7F5' },
+      { nombre: 'Awesome Blue',    css: '#4F8FB5' },
+      { nombre: 'Awesome Violet',  css: '#9B8EB8' },
+      { nombre: 'Awesome Mint',    css: '#7ACFBA' },
+      { nombre: 'Awesome Lime',    css: '#C8E05A' },
+      { nombre: 'Awesome Peach',   css: '#F0C8A8' },
+      { nombre: 'Awesome Graphite',css: '#4A4A4A' },
+    ],
+  },
+]
 
 const FORM_VACIO = {
   nombre: '',
@@ -25,6 +199,11 @@ const FORM_VACIO = {
 }
 
 const VARIANTE_VACIA = { almacenamiento: '', precio: '', stock: 0 }
+
+function labelOpcion(valor) {
+  if (valor === 'seminuevos') return 'Semi nuevos'
+  return valor.charAt(0).toUpperCase() + valor.slice(1)
+}
 
 export default function ProductForm() {
   const { id } = useParams()
@@ -239,7 +418,7 @@ export default function ProductForm() {
               <select value={form.categoria} onChange={e => setField('categoria', e.target.value)}>
                 {CATEGORIAS.map(c => (
                   <option key={c} value={c}>
-                    {c}
+                    {labelOpcion(c)}
                   </option>
                 ))}
               </select>
@@ -249,7 +428,7 @@ export default function ProductForm() {
               <select value={form.estado} onChange={e => setField('estado', e.target.value)}>
                 {ESTADOS.map(estado => (
                   <option key={estado} value={estado}>
-                    {estado}
+                    {labelOpcion(estado)}
                   </option>
                 ))}
               </select>
@@ -351,23 +530,36 @@ export default function ProductForm() {
                     <div className={styles.colorDot} style={{ backgroundColor: img.color_css }} />
                   </div>
                   <div className={styles.imageFields}>
+                    <div className={styles.colorRow}>
+                      <select
+                        value={img.color}
+                        onChange={e => {
+                          const preset = COLORES_GRUPOS.flatMap(g => g.colores).find(c => c.nombre === e.target.value)
+                          if (preset) {
+                            updateExistente(img.id, 'color', preset.nombre)
+                            updateExistente(img.id, 'color_css', preset.css)
+                          }
+                        }}
+                        disabled={imagenesABorrar.includes(img.id)}
+                      >
+                        <option value="">— Elegir color —</option>
+                        {COLORES_GRUPOS.map(g => (
+                          <optgroup key={g.grupo} label={g.grupo}>
+                            {g.colores.map(c => (
+                              <option key={`${g.grupo}-${c.nombre}`} value={c.nombre}>{c.nombre}</option>
+                            ))}
+                          </optgroup>
+                        ))}
+                      </select>
+                      <span className={styles.colorSwatch} style={{ background: img.color_css }} />
+                    </div>
                     <input
                       type="text"
-                      placeholder="Nombre real del color (ej: Desert Titanium)"
+                      placeholder="O escribí el nombre manualmente"
                       value={img.color}
                       onChange={e => updateExistente(img.id, 'color', e.target.value)}
                       disabled={imagenesABorrar.includes(img.id)}
                     />
-                    <div className={styles.colorRow}>
-                      <input
-                        type="color"
-                        value={img.color_css}
-                        onChange={e => updateExistente(img.id, 'color_css', e.target.value)}
-                        title="Color del selector"
-                        disabled={imagenesABorrar.includes(img.id)}
-                      />
-                      <span>Color del selector</span>
-                    </div>
                   </div>
                   <button
                     type="button"
@@ -397,21 +589,34 @@ export default function ProductForm() {
                 <div key={indice} className={styles.imageCard}>
                   <img src={img.previewUrl} alt="nueva imagen" />
                   <div className={styles.imageFields}>
+                    <div className={styles.colorRow}>
+                      <select
+                        value={img.color}
+                        onChange={e => {
+                          const preset = COLORES_GRUPOS.flatMap(g => g.colores).find(c => c.nombre === e.target.value)
+                          if (preset) {
+                            updateNueva(indice, 'color', preset.nombre)
+                            updateNueva(indice, 'color_css', preset.css)
+                          }
+                        }}
+                      >
+                        <option value="">— Elegir color —</option>
+                        {COLORES_GRUPOS.map(g => (
+                          <optgroup key={g.grupo} label={g.grupo}>
+                            {g.colores.map(c => (
+                              <option key={`${g.grupo}-${c.nombre}`} value={c.nombre}>{c.nombre}</option>
+                            ))}
+                          </optgroup>
+                        ))}
+                      </select>
+                      <span className={styles.colorSwatch} style={{ background: img.color_css }} />
+                    </div>
                     <input
                       type="text"
-                      placeholder="Nombre real del color (ej: Desert Titanium)"
+                      placeholder="O escribí el nombre manualmente"
                       value={img.color}
                       onChange={e => updateNueva(indice, 'color', e.target.value)}
                     />
-                    <div className={styles.colorRow}>
-                      <input
-                        type="color"
-                        value={img.color_css}
-                        onChange={e => updateNueva(indice, 'color_css', e.target.value)}
-                        title="Color del selector"
-                      />
-                      <span>Color del selector</span>
-                    </div>
                   </div>
                   <button
                     type="button"

@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router'
 import styles from './ItemDetail.module.css'
 
 function formatearTexto(valor = '') {
+  if (String(valor).toLowerCase() === 'seminuevos') return 'Semi nuevos'
   return String(valor)
     .replace(/-/g, ' ')
     .trim()
@@ -69,8 +70,8 @@ export default function ItemDetail({ item }) {
 
         <div className={styles.detailGrid}>
           <div className={styles.gallery}>
+            {colorLabel && <span className={styles.imageTag}>{colorLabel}</span>}
             <div className={styles.imageBox}>
-              {colorLabel && <span className={styles.imageTag}>{colorLabel}</span>}
               <img src={colorActivo.url} alt={`${item.nombre} ${colorLabel}`.trim()} />
             </div>
 

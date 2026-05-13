@@ -3,6 +3,11 @@ import { Link } from 'react-router'
 import { getAllProductsAdmin, toggleActivo, deleteProductAdmin } from '../../firebase/supabaseDb'
 import styles from '../admin.module.css'
 
+function formatearTexto(valor = '') {
+  if (String(valor).toLowerCase() === 'seminuevos') return 'Semi nuevos'
+  return String(valor).charAt(0).toUpperCase() + String(valor).slice(1)
+}
+
 export default function ProductList() {
   const [productos, setProductos] = useState([])
   const [loading, setLoading] = useState(true)
@@ -81,8 +86,8 @@ export default function ProductList() {
                       </>
                     )}
                   </td>
-                  <td><span className={styles.badge}>{p.categoria}</span></td>
-                  <td>{p.estado}</td>
+                  <td><span className={styles.badge}>{formatearTexto(p.categoria)}</span></td>
+                  <td>{formatearTexto(p.estado)}</td>
                   <td>{vars.length} variante{vars.length !== 1 ? 's' : ''}</td>
                   <td>
                     <label className={styles.toggle} title={p.activo ? 'Visible' : 'Oculto'}>

@@ -11,6 +11,7 @@ import styles from './ProductsSection.module.css'
 const ItemsListWithLoading = withLoading(ItemList)
 
 function formatearTexto(valor = '') {
+  if (String(valor).toLowerCase() === 'seminuevos') return 'Semi nuevos'
   return String(valor)
     .replace(/-/g, ' ')
     .trim()

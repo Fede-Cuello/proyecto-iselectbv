@@ -42,7 +42,8 @@
 }
 .imageBox img { max-height: 360px; max-width: 80%; object-fit: contain; }
 .imageTag {
-  position: absolute; top: 18px; left: 18px;
+  align-self: flex-start;
+  margin-bottom: 12px;
   font-family: var(--font-mono); font-size: 10px; font-weight: 600;
   color: var(--rg-300); letter-spacing: 0.18em; text-transform: uppercase;
   padding: 5px 10px; border-radius: 20px;
