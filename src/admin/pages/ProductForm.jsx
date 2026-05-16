@@ -330,7 +330,7 @@ export default function ProductForm() {
     if (variantes.some(v => !v.almacenamiento.trim() || !v.precio)) {
       return 'Completa almacenamiento y precio en todas las variantes'
     }
-    if (variantes.some(v => Number.isNaN(parseFloat(v.precio)))) {
+    if (variantes.some(v => Number.isNaN(parseFloat(String(v.precio).replace(/\./g, ''))))) {
       return 'El precio debe ser un numero'
     }
     return null
@@ -350,7 +350,7 @@ export default function ProductForm() {
     const variantesLimpias = variantes.map(v => ({
       almacenamiento: v.almacenamiento.trim(),
       ram: v.ram || null,
-      precio: parseFloat(v.precio),
+      precio: parseFloat(String(v.precio).replace(/\./g, '')),
       stock: parseInt(v.stock, 10) || 0,
       moneda: v.moneda || 'USD',
     }))
@@ -523,10 +523,9 @@ export default function ProductForm() {
                     <option value="ARS">Pesos $</option>
                   </select>
                   <input
-                    type="number"
-                    step="0.01"
-                    min="0"
-                    placeholder="999"
+                    type="text"
+                    inputMode="numeric"
+                    placeholder="250.000"
                     value={variante.precio}
                     onChange={e => updateVariante(indice, 'precio', e.target.value)}
                     style={{ flex: 1, minWidth: 0 }}
