@@ -131,7 +131,7 @@ export default function ItemListContainer() {
                   onChange={e => setFiltroEstado(e.target.value)}
                 >
                   <option value="todos">Todos</option>
-                  <option value="sellados">Nuevos</option>
+                  <option value="sellados">{categoriaElegida === 'apple' ? 'Sellados' : 'Nuevos'}</option>
                   <option value="seminuevos">Equipos usados</option>
                 </select>
               </div>
@@ -144,6 +144,7 @@ export default function ItemListContainer() {
                   onChange={e => setFiltroCat(e.target.value)}
                 >
                   <option value="todas">Todas las marcas</option>
+                  <option value="apple">Apple</option>
                   <option value="samsung">Samsung</option>
                   <option value="motorola">Motorola</option>
                   <option value="xiaomi">Xiaomi</option>
