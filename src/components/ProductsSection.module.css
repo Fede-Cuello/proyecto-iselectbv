@@ -13,7 +13,31 @@
           mask-image: radial-gradient(circle at 20% 0%, black 0%, transparent 60%);
 }
 .productsInner { position: relative; max-width: 1240px; margin: 0 auto; }
-.productsHeader { margin-bottom: 36px; }
+.productsHeader {
+  margin-bottom: 36px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+}
+.filterBar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.filterSelect {
+  background: rgba(212,180,149,0.12);
+  border: 1px solid rgba(212,180,149,0.3);
+  color: #fff;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 13px;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  letter-spacing: 0.05em;
+}
+.filterSelect option { background: #2F2926; color: #fff; }
 .eyebrow {
   font-family: var(--font-mono); font-size: 11px; font-weight: 600;
   color: var(--rg-300); letter-spacing: 0.2em; text-transform: uppercase;

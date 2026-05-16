@@ -11,7 +11,7 @@ import styles from './ProductsSection.module.css'
 const ItemsListWithLoading = withLoading(ItemList)
 
 function formatearTexto(valor = '') {
-  if (String(valor).toLowerCase() === 'seminuevos') return 'Semi nuevos'
+  if (String(valor).toLowerCase() === 'seminuevos') return 'Equipos usados'
   return String(valor)
     .replace(/-/g, ' ')
     .trim()
@@ -33,11 +33,15 @@ function ordenarProductos(productos = []) {
 
 export default function ItemListContainer() {
   const [items, setItems] = useState(null)
+  const [filtroEstado, setFiltroEstado] = useState('todos')
+  const [filtroCat, setFiltroCat] = useState('todas')
   const { categoriaElegida, estadoElegido } = useParams()
   const isHomePage = !categoriaElegida && !estadoElegido
   const navigate = useNavigate()
 
   useEffect(() => {
+    setFiltroEstado('todos')
+    setFiltroCat('todas')
     const getAllProducts = async () => {
       try {
         let products
@@ -61,18 +65,30 @@ export default function ItemListContainer() {
     getAllProducts()
   }, [categoriaElegida, estadoElegido])
 
+  const itemsFiltrados = useMemo(() => {
+    if (!Array.isArray(items)) return items
+    let resultado = items
+    if (['apple', 'samsung', 'motorola', 'xiaomi'].includes(categoriaElegida) && filtroEstado !== 'todos') {
+      resultado = resultado.filter(item => item.estado === filtroEstado)
+    }
+    if (categoriaElegida === 'seminuevos' && filtroCat !== 'todas') {
+      resultado = resultado.filter(item => item.categoria === filtroCat)
+    }
+    return resultado
+  }, [items, categoriaElegida, filtroEstado, filtroCat])
+
   const destacados = useMemo(
-    () => (Array.isArray(items) ? items.filter(item => item.destacado) : []),
-    [items]
+    () => (Array.isArray(itemsFiltrados) ? itemsFiltrados.filter(item => item.destacado) : []),
+    [itemsFiltrados]
   )
 
   const productosRestantes = useMemo(
-    () => (Array.isArray(items) ? items.filter(item => !item.destacado) : items),
-    [items]
+    () => (Array.isArray(itemsFiltrados) ? itemsFiltrados.filter(item => !item.destacado) : itemsFiltrados),
+    [itemsFiltrados]
   )
   const mostrarCatalogoGeneral =
     !isHomePage ||
-    !Array.isArray(items) ||
+    !Array.isArray(itemsFiltrados) ||
     destacados.length === 0 ||
     productosRestantes.length > 0
 
@@ -82,7 +98,7 @@ export default function ItemListContainer() {
       ? `Productos ${formatearTexto(estadoElegido)}`
       : 'Todos nuestros productos'
 
-  const eyebrowCount = items ? `${items.length} disponibles` : 'Cargando...'
+  const eyebrowCount = itemsFiltrados ? `${itemsFiltrados.length} disponibles` : 'Cargando...'
 
   return (
     <div>
@@ -100,11 +116,40 @@ export default function ItemListContainer() {
           )}
 
           <header className={styles.productsHeader}>
-            <div className={styles.eyebrow}>
-              <span className={styles.dot} />
-              Catalogo · {eyebrowCount}
+            <div>
+              <div className={styles.eyebrow}>
+                <span className={styles.dot} />
+                Catalogo · {eyebrowCount}
+              </div>
+              <h2 className={styles.productsTitle}>{sectionTitle}</h2>
             </div>
-            <h2 className={styles.productsTitle}>{sectionTitle}</h2>
+            {['apple', 'samsung', 'motorola', 'xiaomi'].includes(categoriaElegida) && (
+              <div className={styles.filterBar}>
+                <select
+                  className={styles.filterSelect}
+                  value={filtroEstado}
+                  onChange={e => setFiltroEstado(e.target.value)}
+                >
+                  <option value="todos">Todos</option>
+                  <option value="sellados">Nuevos</option>
+                  <option value="seminuevos">Equipos usados</option>
+                </select>
+              </div>
+            )}
+            {categoriaElegida === 'seminuevos' && (
+              <div className={styles.filterBar}>
+                <select
+                  className={styles.filterSelect}
+                  value={filtroCat}
+                  onChange={e => setFiltroCat(e.target.value)}
+                >
+                  <option value="todas">Todas las marcas</option>
+                  <option value="samsung">Samsung</option>
+                  <option value="motorola">Motorola</option>
+                  <option value="xiaomi">Xiaomi</option>
+                </select>
+              </div>
+            )}
           </header>
 
           {isHomePage && destacados.length > 0 && (
@@ -129,7 +174,7 @@ export default function ItemListContainer() {
               </div>
               )}
               <ItemsListWithLoading
-                items={isHomePage && destacados.length > 0 ? productosRestantes : items}
+                items={isHomePage && destacados.length > 0 ? productosRestantes : itemsFiltrados}
               />
             </section>
           )}

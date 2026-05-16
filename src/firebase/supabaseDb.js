@@ -62,12 +62,20 @@ export const getProduct = async (id) => {
 
 export const getProdByCat = async (categoria) => {
   try {
-    const { data, error } = await supabase
+    const cat = categoria.toLowerCase()
+    let query = supabase
       .from('productos')
       .select('*, variantes(*), imagenes(*)')
-      .eq('categoria', categoria.toLowerCase())
       .eq('activo', true)
       .order('orden', { ascending: true })
+
+    if (cat === 'seminuevos') {
+      query = query.or('categoria.eq.seminuevos,estado.eq.seminuevos')
+    } else {
+      query = query.eq('categoria', cat)
+    }
+
+    const { data, error } = await query
     if (error) throw error
     return (data || []).map(normalizar)
   } catch (error) {

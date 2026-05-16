@@ -11,7 +11,7 @@ import {
 } from '../../firebase/supabaseDb'
 import styles from '../admin.module.css'
 
-const CATEGORIAS = ['apple', 'samsung', 'seminuevos', 'consolas']
+const CATEGORIAS = ['apple', 'samsung', 'motorola', 'xiaomi', 'seminuevos', 'consolas']
 const ESTADOS = ['sellados', 'seminuevos']
 
 const COLORES_GRUPOS = [
@@ -165,6 +165,17 @@ const COLORES_GRUPOS = [
     ],
   },
   {
+    grupo: 'Samsung — Galaxy S26 / S26+ / S26 Ultra',
+    colores: [
+      { nombre: 'Black',         css: '#1C1C1E' },
+      { nombre: 'White',         css: '#F7F7F5' },
+      { nombre: 'Cobalt Violet', css: '#5A4A8C' },
+      { nombre: 'Sky Blue',      css: '#8FC8E8' },
+      { nombre: 'Silver Shadow', css: '#B8B8C0' },
+      { nombre: 'Pink Gold',     css: '#D4A0B0' },
+    ],
+  },
+  {
     grupo: 'Samsung — Galaxy Z (Fold / Flip)',
     colores: [
       { nombre: 'Icy Blue',        css: '#A8D8E8' },
@@ -188,6 +199,8 @@ const COLORES_GRUPOS = [
   },
 ]
 
+const ALMACENAMIENTOS = ['128GB', '256GB', '512GB', '1TB', '2TB']
+
 const FORM_VACIO = {
   nombre: '',
   categoria: 'apple',
@@ -198,10 +211,10 @@ const FORM_VACIO = {
   orden: 0,
 }
 
-const VARIANTE_VACIA = { almacenamiento: '', precio: '', stock: 0 }
+const VARIANTE_VACIA = { almacenamiento: '', precio: '', stock: 0, moneda: 'USD' }
 
 function labelOpcion(valor) {
-  if (valor === 'seminuevos') return 'Semi nuevos'
+  if (valor === 'seminuevos') return 'Equipos usados'
   return valor.charAt(0).toUpperCase() + valor.slice(1)
 }
 
@@ -245,6 +258,7 @@ export default function ProductForm() {
                 almacenamiento: v.almacenamiento,
                 precio: String(v.precio),
                 stock: v.stock,
+                moneda: v.moneda || 'USD',
               }))
             : [{ ...VARIANTE_VACIA }]
         )
@@ -335,6 +349,7 @@ export default function ProductForm() {
       almacenamiento: v.almacenamiento.trim(),
       precio: parseFloat(v.precio),
       stock: parseInt(v.stock, 10) || 0,
+      moneda: v.moneda || 'USD',
     }))
 
     try {
@@ -471,22 +486,37 @@ export default function ProductForm() {
             <div key={indice} className={styles.varianteRow}>
               <div className={styles.formGroup}>
                 <label>Almacenamiento</label>
-                <input
-                  placeholder="128GB"
+                <select
                   value={variante.almacenamiento}
                   onChange={e => updateVariante(indice, 'almacenamiento', e.target.value)}
-                />
+                >
+                  <option value="">Elegir</option>
+                  {ALMACENAMIENTOS.map(a => (
+                    <option key={a} value={a}>{a}</option>
+                  ))}
+                </select>
               </div>
               <div className={styles.formGroup}>
-                <label>Precio (USD)</label>
-                <input
-                  type="number"
-                  step="0.01"
-                  min="0"
-                  placeholder="999"
-                  value={variante.precio}
-                  onChange={e => updateVariante(indice, 'precio', e.target.value)}
-                />
+                <label>Precio</label>
+                <div style={{ display: 'flex', gap: '6px' }}>
+                  <select
+                    value={variante.moneda}
+                    onChange={e => updateVariante(indice, 'moneda', e.target.value)}
+                    style={{ width: '100px', flexShrink: 0 }}
+                  >
+                    <option value="USD">USD</option>
+                    <option value="ARS">Pesos $</option>
+                  </select>
+                  <input
+                    type="number"
+                    step="0.01"
+                    min="0"
+                    placeholder="999"
+                    value={variante.precio}
+                    onChange={e => updateVariante(indice, 'precio', e.target.value)}
+                    style={{ flex: 1, minWidth: 0 }}
+                  />
+                </div>
               </div>
               <div className={styles.formGroup}>
                 <label>Stock</label>

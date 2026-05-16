@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router'
 import styles from './ItemDetail.module.css'
 
 function formatearTexto(valor = '') {
-  if (String(valor).toLowerCase() === 'seminuevos') return 'Semi nuevos'
+  if (String(valor).toLowerCase() === 'seminuevos') return 'Equipos usados'
   return String(valor)
     .replace(/-/g, ' ')
     .trim()

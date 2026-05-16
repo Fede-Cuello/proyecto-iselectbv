@@ -41,20 +41,20 @@ export default function NavBar() {
       <Nav className={`justify-content-center ${styles.navBarMenu}`}>
         {/* Estado */}
         <Nav.Item>
-          <NavLink to="/category/samsung" className={styles.navBarLink}>
-            Samsung
-          </NavLink>
           <NavLink to="/category/apple" className={styles.navBarLink}>
             Apple
           </NavLink>
-          <NavLink to="/estado/sellados" className={styles.navBarLink}>
-            Nuevos
+          <NavLink to="/category/samsung" className={styles.navBarLink}>
+            Samsung
+          </NavLink>
+          <NavLink to="/category/motorola" className={styles.navBarLink}>
+            Motorola
+          </NavLink>
+          <NavLink to="/category/xiaomi" className={styles.navBarLink}>
+            Xiaomi
           </NavLink>
           <NavLink to="/category/seminuevos" className={styles.navBarLink}>
-            Semi nuevos
-          </NavLink>
-          <NavLink to="/estado/usados" className={styles.navBarLink}>
-            Usados
+            Equipos usados
           </NavLink>
           <NavLink to="/category/consolas" className={styles.navBarLink}>
             PlayStation

@@ -4,7 +4,7 @@ import { getAllProductsAdmin, toggleActivo, deleteProductAdmin } from '../../fir
 import styles from '../admin.module.css'
 
 function formatearTexto(valor = '') {
-  if (String(valor).toLowerCase() === 'seminuevos') return 'Semi nuevos'
+  if (String(valor).toLowerCase() === 'seminuevos') return 'Equipos usados'
   return String(valor).charAt(0).toUpperCase() + String(valor).slice(1)
 }
 

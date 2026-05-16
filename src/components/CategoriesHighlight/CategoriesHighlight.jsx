@@ -10,7 +10,7 @@ export default function CategoriesHighlight() {
     { name: "Samsung", icon: <SiSamsung />, desc: "Galaxy S · A · Z Fold", count: "12", path: "/category/samsung", tag: "HOT" },
     { name: "Apple", icon: <FaApple />, desc: "iPhone · Watch · AirPods", count: "20", path: "/category/apple", tag: "TOP" },
     { name: "PlayStation", icon: <FaGamepad />, desc: "Consolas y accesorios", count: "8", path: "/category/consolas" },
-    { name: "Semi nuevos", icon: <FaMobileAlt />, desc: "Equipos revisados y verificados", count: "15", path: "/category/seminuevos" },
+    { name: "Equipos usados", icon: <FaMobileAlt />, desc: "Equipos revisados y verificados", count: "15", path: "/category/seminuevos" },
   ];
 
   return (
