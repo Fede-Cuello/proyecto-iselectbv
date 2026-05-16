@@ -7,10 +7,12 @@ export default function CategoriesHighlight() {
   const navigate = useNavigate();
 
   const categories = [
-    { name: "Samsung", icon: <SiSamsung />, desc: "Galaxy S · A · Z Fold", count: "12", path: "/category/samsung", tag: "HOT" },
     { name: "Apple", icon: <FaApple />, desc: "iPhone · Watch · AirPods", count: "20", path: "/category/apple", tag: "TOP" },
-    { name: "PlayStation", icon: <FaGamepad />, desc: "Consolas y accesorios", count: "8", path: "/category/consolas" },
-    { name: "Equipos usados", icon: <FaMobileAlt />, desc: "Equipos revisados y verificados", count: "15", path: "/category/seminuevos" },
+    { name: "Samsung", icon: <SiSamsung />, desc: "Galaxy S · A · Z Fold", count: "12", path: "/category/samsung", tag: "HOT" },
+    { name: "Motorola", icon: <FaMobileAlt />, desc: "Edge · Moto G · Razr", count: "", path: "/category/motorola" },
+    { name: "Xiaomi", icon: <FaMobileAlt />, desc: "Redmi · Note · 14 Pro", count: "", path: "/category/xiaomi" },
+    { name: "Equipos usados", icon: <FaMobileAlt />, desc: "Equipos revisados y verificados", count: "", path: "/category/seminuevos" },
+    { name: "PlayStation", icon: <FaGamepad />, desc: "Consolas y accesorios", count: "", path: "/category/consolas" },
   ];
 
   return (

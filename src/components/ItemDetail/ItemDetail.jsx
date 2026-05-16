@@ -31,6 +31,8 @@ export default function ItemDetail({ item }) {
 
   const colorActivo = opcionesColor[colorIndex] || opcionesColor[0] || {}
   const precioActual = item.precio?.[storageIndex]
+  const monedaActual = item.moneda?.[storageIndex] || 'USD'
+  const simboloMoneda = monedaActual === 'ARS' ? '$' : 'USD $'
   const colorLabel = formatearTexto(colorActivo.color)
   const categoriaLabel = formatearTexto(item.categoria)
   const estadoLabel = formatearTexto(item.estado || 'sellados')
@@ -41,7 +43,7 @@ export default function ItemDetail({ item }) {
       (item?.almacenamiento?.[storageIndex]
         ? `, Almacenamiento: ${item.almacenamiento[storageIndex]}`
         : '') +
-      `, Precio: $${precioActual} USD`
+      `, Precio: ${monedaActual === 'ARS' ? `$${precioActual} Pesos` : `USD $${precioActual}`}`
   )
 
   return (
@@ -141,7 +143,6 @@ export default function ItemDetail({ item }) {
                       type="button"
                     >
                       <span className={styles.storageLabel}>{alm}</span>
-                      <span className={styles.storagePrice}>USD {item.precio?.[index]}</span>
                     </button>
                   ))}
                 </div>
@@ -152,7 +153,7 @@ export default function ItemDetail({ item }) {
               <div>
                 <div className={styles.priceLabel}>Precio final</div>
                 <div className={styles.priceValue}>
-                  ${precioActual} <span>USD</span>
+                  {simboloMoneda}{precioActual} {monedaActual === 'ARS' && <span>Pesos</span>}
                 </div>
               </div>
               <div className={styles.stockBadge}>

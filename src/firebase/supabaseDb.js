@@ -25,6 +25,7 @@ function normalizar(prod) {
     coloresNombres: imgs.map(i => normalizarNombreColor(i.color)),
     almacenamiento: vars.map(v => v.almacenamiento),
     precio: vars.map(v => String(v.precio)),
+    moneda: vars.map(v => v.moneda || 'USD'),
   }
 }
 
