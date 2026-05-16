@@ -18,7 +18,7 @@ export default function Item({ prod }) {
       <div className={styles.body}>
         <div className={styles.name}>{prod.nombre}</div>
         <div className={styles.priceLabel}>Precio</div>
-        <div className={styles.price}>{simbolo}{prod.precio?.[0]}{moneda === 'ARS' && ' Pesos'}</div>
+        <div className={styles.price}>{simbolo}{prod.precio?.[0]}</div>
         <button className={styles.cta} onClick={() => navigate(`/item/${prod.id}`)}>
           <span>Ver más</span>
           <span>→</span>
