@@ -96,7 +96,7 @@ export default function ItemListContainer() {
     ? formatearTexto(categoriaElegida)
     : estadoElegido
       ? `Productos ${formatearTexto(estadoElegido)}`
-      : 'Todos nuestros productos'
+      : 'Encuentra tu equipo'
 
   const eyebrowCount = itemsFiltrados ? `${itemsFiltrados.length} disponibles` : 'Cargando...'
 
