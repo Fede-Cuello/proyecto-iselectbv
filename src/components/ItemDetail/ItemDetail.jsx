@@ -31,6 +31,7 @@ export default function ItemDetail({ item }) {
 
   const colorActivo = opcionesColor[colorIndex] || opcionesColor[0] || {}
   const precioActual = item.precio?.[storageIndex]
+  const ramActual = item.ram?.[storageIndex] || ''
   const monedaActual = item.moneda?.[storageIndex] || 'USD'
   const simboloMoneda = monedaActual === 'ARS' ? '$' : 'USD $'
   const colorLabel = formatearTexto(colorActivo.color)
@@ -129,11 +130,22 @@ export default function ItemDetail({ item }) {
               </div>
             )}
 
-            {item.almacenamiento?.length > 0 && (
+            {ramActual && (
+              <div className={styles.field}>
+                <div className={styles.fieldLabel}>RAM</div>
+                <div className={styles.storages}>
+                  <button className={`${styles.storageBtn} ${styles.storageBtnActive}`} type="button">
+                    <span className={styles.storageLabel}>{ramActual}</span>
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {item.almacenamiento?.some(a => a) && (
               <div className={styles.field}>
                 <div className={styles.fieldLabel}>Almacenamiento</div>
                 <div className={styles.storages}>
-                  {item.almacenamiento.map((alm, index) => (
+                  {item.almacenamiento.map((alm, index) => alm ? (
                     <button
                       key={alm}
                       className={`${styles.storageBtn} ${
@@ -144,7 +156,7 @@ export default function ItemDetail({ item }) {
                     >
                       <span className={styles.storageLabel}>{alm}</span>
                     </button>
-                  ))}
+                  ) : null)}
                 </div>
               </div>
             )}

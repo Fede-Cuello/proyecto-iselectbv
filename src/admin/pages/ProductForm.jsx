@@ -200,6 +200,7 @@ const COLORES_GRUPOS = [
 ]
 
 const ALMACENAMIENTOS = ['128GB', '256GB', '512GB', '1TB', '2TB']
+const RAMS = ['4GB', '8GB', '12GB', '16GB']
 
 const FORM_VACIO = {
   nombre: '',
@@ -211,7 +212,7 @@ const FORM_VACIO = {
   orden: 0,
 }
 
-const VARIANTE_VACIA = { almacenamiento: '', precio: '', stock: 0, moneda: 'USD' }
+const VARIANTE_VACIA = { almacenamiento: '', ram: '', precio: '', stock: 0, moneda: 'USD' }
 
 function labelOpcion(valor) {
   if (valor === 'seminuevos') return 'Equipos usados'
@@ -256,6 +257,7 @@ export default function ProductForm() {
           prod.variantes.length > 0
             ? prod.variantes.map(v => ({
                 almacenamiento: v.almacenamiento,
+                ram: v.ram || '',
                 precio: String(v.precio),
                 stock: v.stock,
                 moneda: v.moneda || 'USD',
@@ -347,6 +349,7 @@ export default function ProductForm() {
 
     const variantesLimpias = variantes.map(v => ({
       almacenamiento: v.almacenamiento.trim(),
+      ram: v.ram || null,
       precio: parseFloat(v.precio),
       stock: parseInt(v.stock, 10) || 0,
       moneda: v.moneda || 'USD',
@@ -493,6 +496,18 @@ export default function ProductForm() {
                   <option value="">Elegir</option>
                   {ALMACENAMIENTOS.map(a => (
                     <option key={a} value={a}>{a}</option>
+                  ))}
+                </select>
+              </div>
+              <div className={styles.formGroup}>
+                <label>RAM</label>
+                <select
+                  value={variante.ram}
+                  onChange={e => updateVariante(indice, 'ram', e.target.value)}
+                >
+                  <option value="">— Sin especificar —</option>
+                  {RAMS.map(r => (
+                    <option key={r} value={r}>{r}</option>
                   ))}
                 </select>
               </div>
