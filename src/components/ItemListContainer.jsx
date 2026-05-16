@@ -96,7 +96,7 @@ export default function ItemListContainer() {
     ? formatearTexto(categoriaElegida)
     : estadoElegido
       ? `Productos ${formatearTexto(estadoElegido)}`
-      : 'Encuentra tu equipo'
+      : (isHomePage && Array.isArray(items) && items.some(i => i.destacado) ? 'Mira nuestros destacados' : 'Todos nuestros productos')
 
   const eyebrowCount = itemsFiltrados ? `${itemsFiltrados.length} disponibles` : 'Cargando...'
 
@@ -171,7 +171,7 @@ export default function ItemListContainer() {
               {isHomePage && destacados.length > 0 && productosRestantes.length > 0 && (
               <div className={styles.subHeader}>
                 <div className={styles.subEyebrow}>Todo el catalogo</div>
-                <h3 className={styles.subTitle}>Mas productos para elegir</h3>
+                <h3 className={styles.subTitle}>Todos nuestros productos</h3>
               </div>
               )}
               <ItemsListWithLoading
