@@ -99,14 +99,21 @@ const COLORES_GRUPOS = [
     ],
   },
   {
-    grupo: 'Apple — iPhone 17 (2025)',
+    grupo: 'Apple — iPhone 17',
     colores: [
-      { nombre: 'Lavender',      css: '#C8B8D8' },
-      { nombre: 'Sage',          css: '#7A9A7A' },
-      { nombre: 'Mist Blue',     css: '#87AABF' },
-      { nombre: 'White',         css: '#F7F7F5' },
-      { nombre: 'Black',         css: '#1C1C1E' },
-      { nombre: 'Cosmic Orange', css: '#D4742A' },
+      { nombre: 'Black',      css: '#1C1C1E' },
+      { nombre: 'White',      css: '#F7F7F5' },
+      { nombre: 'Lavender',   css: '#C8B8D8' },
+      { nombre: 'Mist Blue',  css: '#87AABF' },
+      { nombre: 'Sage',       css: '#7A9A7A' },
+    ],
+  },
+  {
+    grupo: 'Apple — iPhone 17 Pro / Pro Max',
+    colores: [
+      { nombre: 'Deep Blue',      css: '#1E3A5F' },
+      { nombre: 'Cosmic Orange',  css: '#D4742A' },
+      { nombre: 'Silver',         css: '#C8C7C2' },
     ],
   },
   {
