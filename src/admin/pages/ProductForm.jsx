@@ -12,7 +12,7 @@ import {
 import styles from '../admin.module.css'
 
 const CATEGORIAS = ['apple', 'samsung', 'seminuevos', 'consolas']
-const ESTADOS = ['sellados', 'usados']
+const ESTADOS = ['sellados', 'seminuevos']
 
 const COLORES_GRUPOS = [
   {
