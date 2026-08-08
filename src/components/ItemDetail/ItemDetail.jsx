@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { FaWhatsapp } from 'react-icons/fa'
+import { FaArrowLeft, FaWhatsapp } from 'react-icons/fa'
 import { useNavigate } from 'react-router'
 import styles from './ItemDetail.module.css'
 
@@ -51,25 +51,37 @@ export default function ItemDetail({ item }) {
     <section className={styles.detail}>
       <div className={styles.bgGrid} />
       <div className={styles.detailInner}>
-        <nav className={styles.crumb}>
-          <span className={styles.crumbDot}>.</span>
-          <span className={styles.crumbLink} onClick={() => navigate('/')}>
-            Catalogo
-          </span>
-          {categoriaLabel && (
-            <>
-              <span className={styles.sep}>/</span>
-              <span
-                className={styles.crumbLink}
-                onClick={() => navigate(`/category/${item.categoria}`)}
-              >
-                {categoriaLabel}
-              </span>
-            </>
-          )}
-          <span className={styles.sep}>/</span>
-          <span className={styles.current}>{item.nombre}</span>
-        </nav>
+        <div className={styles.topBar}>
+          <nav className={styles.crumb}>
+            <span className={styles.crumbDot}>.</span>
+            <span className={styles.crumbLink} onClick={() => navigate('/')}>
+              Catalogo
+            </span>
+            {categoriaLabel && (
+              <>
+                <span className={styles.sep}>/</span>
+                <span
+                  className={styles.crumbLink}
+                  onClick={() => navigate(`/category/${item.categoria}`)}
+                >
+                  {categoriaLabel}
+                </span>
+              </>
+            )}
+            <span className={styles.sep}>/</span>
+            <span className={styles.current}>{item.nombre}</span>
+          </nav>
+
+          <button
+            className={styles.backArrow}
+            onClick={() => navigate(-1)}
+            type="button"
+            title="Volver atras"
+            aria-label="Volver atras"
+          >
+            <FaArrowLeft />
+          </button>
+        </div>
 
         <div className={styles.detailGrid}>
           <div className={styles.gallery}>

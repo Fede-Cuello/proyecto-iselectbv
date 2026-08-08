@@ -23,7 +23,8 @@
       "PowerShell(Get-Item \"D:\\\\Usuario\\\\Desktop\\\\migracion\" | Select-Object FullName, @{Name=\"IsDirectory\"; Expression={$_.PSIsContainer}})",
       "Bash(git add *)",
       "Bash(git commit -m ' *)",
-      "Bash(git push *)"
+      "Bash(git push *)",
+      "PowerShell(npm run build)"
     ]
   }
 }
